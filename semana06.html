@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Aprendizaje - React y Componentes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
+            color: #E2E8F0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 32px auto;
+            background: rgba(34,41,70,0.95);
+            padding: 36px 28px;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+        h1 {
+            text-align: center;
+            color: #a7c7e7;
+            font-size: 2.7rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(34,41,70,0.3);
+            border-bottom: 3px solid #764ba2;
+            padding-bottom: 15px;
+        }
+        h2 {
+            color: #764ba2;
+            font-size: 2rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #232946;
+            padding-bottom: 8px;
+        }
+        h3 {
+            color: #a7c7e7;
+            font-size: 1.3rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        ul, ol {
+            margin-left: 24px;
+            margin-bottom: 18px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .code-block {
+            background: #1a1a2e;
+            border-left: 4px solid #764ba2;
+            padding: 15px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.97em;
+            border-radius: 8px;
+            color: #a7c7e7;
+        }
+        .reflection {
+            background: linear-gradient(90deg, #232946 60%, #764ba2 100%);
+            border-left: 5px solid #a7c7e7;
+            padding: 24px;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.18);
+        }
+        .reflection h3 {
+            color: #a7c7e7;
+            margin-bottom: 10px;
+        }
+        .reflection p {
+            margin-bottom: 10px;
+        }
+        .bibliography {
+            background: #232946;
+            color: #E2E8F0;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.12);
+            margin-top: 40px;
+        }
+        .bibliography h2 {
+            color: #a7c7e7;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .bibliography ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .bibliography li {
+            margin-bottom: 10px;
+            background: rgba(118,75,162,0.10);
+            border-radius: 8px;
+            padding: 10px 15px;
+            border-left: 3px solid #764ba2;
+        }
+        a {
+            color: #a7c7e7;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #fff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #1a1a2e;
+            color: #E2E8F0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #764ba2;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #232946;
+            color: #a7c7e7;
+        }
+        /* Botones de navegación */
+        .nav-buttons {
+            margin-top:2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            background: linear-gradient(90deg, #232946 60%, #1a1a2e 100%);
+            color: #a7c7e7;
+            padding: 12px 32px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.2);
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: #1a1a2e;
+            transform: scale(1.05);
+        }
+        .nav-btn.next {
+            background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(118,75,162,0.15);
+        }
+        .nav-btn.next:hover {
+            background: #667eea;
+        }
+        @media (max-width: 900px) {
+            .container {
+                padding: 16px 4px;
+            }
+            .nav-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reporte de Aprendizaje: Fundamentos de React y Componentes</h1>
+
+        <section>
+            <h2>Temas Aprendidos: Definiciones y Procedimientos</h2>
+            <h3>1. La Función de Renderizado en React</h3>
+            <ul>
+                <li>
+                    <strong>Definición:</strong> La función <code>ReactDOM.render()</code> es fundamental en React para modificar el DOM. Toma el código HTML de un componente y lo inserta en un elemento HTML existente en la página, generalmente identificado por un <code>id</code> como <code>root</code> o <code>main</code>.
+                </li>
+                <li>
+                    <strong>Sintaxis:</strong> <code>ReactDOM.render(Componente HTML, Elemento HTML a ser modificado)</code>.
+                </li>
+                <li>
+                    <strong>Procedimiento Interno:</strong>
+                    <ol>
+                        <li>React crea un <strong>DOM Virtual</strong> en memoria.</li>
+                        <li>Cada vez que un componente cambia, React genera un nuevo DOM virtual.</li>
+                        <li>Realiza una <strong>comparación (Diffing)</strong> entre el DOM virtual actual y el anterior.</li>
+                        <li>Lleva a cabo la <strong>reconciliación y actualización del DOM real</strong>, actualizando solo las partes necesarias para optimizar el rendimiento.</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>2. ¿Qué es un Componente en React?</h3>
+            <ul>
+                <li>
+                    <strong>Definición:</strong> Un componente es una pieza de UI (User Interface) reutilizable e independiente. El objetivo principal de React es renderizar el DOM en una página web a través de componentes.
+                </li>
+                <li>
+                    <strong>Creación:</strong> Se crean en archivos con extensiones <code>.js</code>, <code>.jsx</code>, <code>.ts</code>, o <code>.tsx</code>. El nombre de un componente debe comenzar con una letra mayúscula.
+                </li>
+                <li>
+                    <strong>Estructura:</strong> Todo componente se subdivide en tres partes:
+                    <ul>
+                        <li>Código HTML (generalmente JSX)</li>
+                        <li>Código JavaScript (lógica del componente)</li>
+                        <li>Código CSS (estilos del componente)</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Tipos de Componentes:</strong>
+                    <ul>
+                        <li><strong>Componentes de Clase:</strong> Basados en clases de JavaScript, con un ciclo de vida y estado interno.</li>
+                        <li><strong>Componentes de Función:</strong> Más concisos y fáciles de entender, especialmente con la introducción de Hooks.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>3. JSX (JavaScript XML)</h3>
+            <ul>
+                <li>
+                    <strong>Definición:</strong> JSX es una extensión de sintaxis para JavaScript que permite escribir código HTML dentro de JavaScript. Fue creado por Facebook para su uso con la librería React.
+                </li>
+                <li>
+                    <strong>Transformación:</strong> JSX requiere ser transformado a JavaScript puro mediante un transpilador como Babel antes de que el navegador pueda interpretarlo.
+                </li>
+                <li>
+                    <strong>Características Clave:</strong>
+                    <ul>
+                        <li>Permite almacenar código HTML en variables o constantes.</li>
+                        <li>Permite insertar expresiones JavaScript dentro de llaves <code>{}</code>.</li>
+                        <li>Se pueden insertar variables, atributos en etiquetas y ejecutar código JS.</li>
+                        <li>Los elementos HTML deben estar cerrados (ej. <code>&lt;img&gt;</code> se convierte en <code>&lt;img /&gt;</code>).</li>
+                        <li>Permite renderizar condicionalmente componentes usando operadores ternarios (<code>condicion ? expresionTrue : expresionFalse</code>) o el operador <code>&&</code> (<code>condicion && expresionTrue</code>).</li>
+                        <li>Facilita la iteración sobre arrays u objetos con el método <code>map()</code>.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Observaciones de Codificación:</strong>
+                    <ul>
+                        <li>JSX permite renderizar el DOM sin <code>createElement()</code> o <code>.appendChild()</code>.</li>
+                        <li>JSX convierte etiquetas HTML en elementos reactivos.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>4. TypeScript en React</h3>
+            <ul>
+                <li>
+                    <strong>Definición:</strong> TypeScript es un lenguaje JavaScript con tipado estático opcional desarrollado por Microsoft.
+                </li>
+                <li>
+                    <strong>Ventajas:</strong> Permite detectar errores antes de la ejecución y mejorar la estructura del código.
+                </li>
+                <li>
+                    <strong>Uso con React:</strong> Se puede usar TypeScript en lugar de JSX para crear componentes, lo que requiere una traducción y transpilación similar a JSX.
+                </li>
+            </ul>
+
+            <h3>5. Estilos en React (CSS)</h3>
+            <ul>
+                <li>
+                    <strong>Formas de Aplicar Estilos:</strong>
+                    <ul>
+                        <li><strong>Hojas de Estilo CSS:</strong> Crear archivos <code>.css</code> e importarlos. Se usa <code>className</code> en lugar de <code>class</code>.</li>
+                        <li><strong>Módulos CSS:</strong> Crear archivos <code>.module.css</code>. Permite encapsular estilos para evitar conflictos. Se importan y se usan como objetos.</li>
+                        <li><strong>Estilos en Línea (Inline Styles):</strong> Se aplican directamente en el elemento como un objeto JavaScript.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Integración con Tailwind CSS:</strong>
+                    <ul>
+                        <li><strong>Instalación:</strong> <code>npm install -D tailwindcss postcss autoprefixer</code> y <code>npx tailwindcss init -p</code>.</li>
+                        <li><strong>Configuración:</strong> Configurar los paths de plantilla en <code>tailwind.config.js</code>.</li>
+                        <li><strong>Directivas:</strong> Agregar directivas <code>@tailwind</code> en el CSS principal (<code>./src/index.css</code>).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>6. Props (Propiedades)</h3>
+            <ul>
+                <li>
+                    <strong>Definición:</strong> Los <code>props</code> son objetos de argumentos (datos) que se envían a la función de un componente. Permiten la transferencia de datos de un componente padre a un componente hijo.
+                </li>
+                <li>
+                    <strong>Uso:</strong> Se definen como uno o más atributos en un componente.
+                </li>
+            </ul>
+
+            <h3>7. Children</h3>
+            <ul>
+                <li>
+                    <strong>Definición:</strong> <code>children</code> es un argumento especial que se envía al componente hijo como contenido, permitiendo pasar elementos o componentes anidados.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ejercicios de Laboratorio (Ejemplos Prácticos)</h2>
+            <h3>1. Creación de un Componente de Función Básico</h3>
+            <p><strong>Procedimiento:</strong></p>
+            <ol>
+                <li>Crear un archivo <code>src/components/ComponentHeader.jsx</code>.</li>
+                <li>Digitar el siguiente código:</li>
+            </ol>
+            <div class="code-block">
+                <pre><code>
+// src/components/ComponentHeader.jsx
+import React from 'react';
+
+function ComponentHeader() {
+    return (
+        &lt;h1&gt;¡Hola desde ComponentHeader!&lt;/h1&gt;
+    );
+}
+
+export default ComponentHeader;
+                </code></pre>
+            </div>
+            <p><strong>Invocación en App.jsx:</strong></p>
+            <div class="code-block">
+                <pre><code>
+// src/App.jsx
+import React from 'react';
+import ComponentHeader from './components/ComponentHeader';
+
+function App() {
+    return (
+        &lt;div&gt;
+            &lt;ComponentHeader /&gt;
+        &lt;/div&gt;
+    );
+}
+
+export default App;
+                </code></pre>
+            </div>
+
+            <h3>2. Uso de JSX: Inserción de Variables y Atributos</h3>
+            <p><strong>Procedimiento:</strong></p>
+            <div class="code-block">
+                <pre><code>
+import React from 'react';
+
+function MyComponent() {
+    const usuario = 'Jaime';
+    const myId = 'titulo-principal';
+
+    return (
+        &lt;div&gt;
+            &lt;h1 id={myId}&gt;Bienvenido {usuario} !!!&lt;/h1&gt;
+            &lt;p&gt;El año actual es: {2000 + 24}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+export default MyComponent;
+                </code></pre>
+            </div>
+
+            <h3>3. Paso de Datos con Props (Padre a Hijo)</h3>
+            <p><strong>Procedimiento:</strong></p>
+            <p><strong>Componente Hijo (<code>ChildComponent.jsx</code>):</strong></p>
+            <div class="code-block">
+                <pre><code>
+// src/components/ChildComponent.jsx
+import React from 'react';
+
+function ChildComponent(props) {
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;Datos recibidos del padre:&lt;/h3&gt;
+            &lt;p&gt;Nombre: {props.nombre}&lt;/p&gt;
+            &lt;p&gt;Mensaje: {props.mensaje}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+export default ChildComponent;
+                </code></pre>
+            </div>
+            <p><strong>Componente Padre (<code>ParentComponent.jsx</code>):</strong></p>
+            <div class="code-block">
+                <pre><code>
+// src/components/ParentComponent.jsx
+import React from 'react';
+import ChildComponent from './ChildComponent';
+
+function ParentComponent() {
+    const userName = 'Alice';
+    const greeting = '¡Hola desde el componente padre!';
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Componente Padre&lt;/h2&gt;
+            &lt;ChildComponent nombre={userName} mensaje={greeting} /&gt;
+        &lt;/div&gt;
+    );
+}
+
+export default ParentComponent;
+                </code></pre>
+            </div>
+
+            <h3>4. Renderizado Condicional con Operador Ternario</h3>
+            <p><strong>Procedimiento:</strong></p>
+            <div class="code-block">
+                <pre><code>
+import React from 'react';
+
+function ConditionalRender({ isLoggedIn }) {
+    return (
+        &lt;div&gt;
+            {isLoggedIn ? (
+                &lt;h2&gt;Bienvenido de nuevo!&lt;/h2&gt;
+            ) : (
+                &lt;h2&gt;Por favor, inicia sesión.&lt;/h2&gt;
+            )}
+        &lt;/div&gt;
+    );
+}
+
+export default ConditionalRender;
+                </code></pre>
+            </div>
+
+            <h3>5. Renderizado de Lista con <code>map()</code></h3>
+            <p><strong>Procedimiento:</strong></p>
+            <div class="code-block">
+                <pre><code>
+import React from 'react';
+
+function StudentList() {
+    const students = [
+        { id: 1, name: 'Ana', city: 'Lima' },
+        { id: 2, name: 'Luis', city: 'Arequipa' },
+        { id: 3, name: 'Marta', city: 'Cusco' },
+        { id: 4, name: 'Pedro', city: 'Trujillo' }
+    ];
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Lista de Estudiantes&lt;/h2&gt;
+            &lt;table&gt;
+                &lt;thead&gt;
+                    &lt;tr&gt;
+                        &lt;th&gt;ID&lt;/th&gt;
+                        &lt;th&gt;Nombre&lt;/th&gt;
+                        &lt;th&gt;Ciudad&lt;/th&gt;
+                    &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody&gt;
+                    {students.map(student => (
+                        &lt;tr key={student.id}&gt;
+                            &lt;td&gt;{student.id}&lt;/td&gt;
+                            &lt;td&gt;{student.name}&lt;/td&gt;
+                            &lt;td&gt;{student.city}&lt;/td&gt;
+                        &lt;/tr&gt;
+                    ))}
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+        &lt;/div&gt;
+    );
+}
+
+export default StudentList;
+                </code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h2>Resultados y Reflexión Final</h2>
+            <h3>¿Qué aprendí y cómo lo hice?</h3>
+            <p>Durante esta semana, he adquirido una comprensión sólida de los fundamentos de React, centrándome en la creación y manipulación de componentes. Aprendí que React no manipula directamente el DOM real de forma constante, sino que utiliza un <strong>DOM Virtual</strong>, lo que optimiza significativamente el rendimiento al minimizar las actualizaciones directas al navegador. Este concepto de "Diffing" y "Reconciliación" es clave para entender la eficiencia de React.</p>
+            <p>La creación de componentes, tanto de clase como de función, fue un pilar fundamental. Descubrí la simplicidad y concisión de los componentes de función, especialmente al trabajar con JSX. JSX, aunque inicialmente parece una mezcla extraña de HTML y JavaScript, rápidamente se reveló como una herramienta poderosa para construir interfaces de usuario de manera declarativa y legible. La capacidad de incrustar expresiones JavaScript directamente en el marcado HTML es increíblemente útil.</p>
+            <p>También exploré las diferentes formas de aplicar estilos, desde hojas de estilo CSS tradicionales hasta módulos CSS y estilos en línea, lo que me da flexibilidad para organizar y encapsular los estilos de mis componentes. La introducción a Tailwind CSS fue un plus, mostrando cómo un framework de utilidad puede acelerar el desarrollo de UI.</p>
+            <p>Finalmente, el concepto de <strong>Props</strong> y <strong>Children</strong> fue crucial para entender cómo los componentes se comunican entre sí y cómo se pueden construir interfaces complejas a partir de componentes más pequeños y reutilizables. Los ejercicios prácticos de pasar datos entre componentes padre e hijo, y el renderizado condicional y de listas, consolidaron mi comprensión de estos conceptos.</p>
+            <p>El aprendizaje se llevó a cabo a través de la lectura detallada del material proporcionado, la experimentación directa con el código en un entorno de desarrollo (Vite), y la resolución de los ejercicios propuestos. La práctica constante de escribir y depurar código fue esencial para asimilar los conceptos.</p>
+
+            <div class="reflection">
+                <h3>Reflexión Metacognitiva</h3>
+                <p>Al reflexionar sobre mi proceso de aprendizaje de React, me doy cuenta de la importancia de la <strong>descomposición de problemas</strong>. React, con su enfoque basado en componentes, naturalmente me empuja a pensar en la UI como una colección de piezas más pequeñas y manejables. Esto no solo facilita el desarrollo, sino que también mejora la mantenibilidad y la reutilización del código.</p>
+                <p>Un aspecto que me resultó particularmente interesante fue la abstracción que React ofrece sobre la manipulación directa del DOM. Antes, la interacción con el DOM podía ser tediosa y propensa a errores. React, al gestionar el DOM Virtual y las actualizaciones de manera eficiente, me permite centrarme en "qué" quiero que se muestre en la UI, en lugar de "cómo" manipular los elementos del DOM. Esto representa un cambio significativo en la mentalidad de desarrollo web.</p>
+                <p>También he notado cómo la práctica constante y la experimentación son fundamentales. No basta con leer la teoría; es necesario escribir código, ver los errores, entender por qué ocurren y cómo corregirlos. Este ciclo de "intentar, fallar, aprender y corregir" es donde el verdadero aprendizaje ocurre. La capacidad de aplicar conceptos como props, renderizado condicional y bucles <code>map</code> en escenarios prácticos me ha dado confianza en mi habilidad para construir aplicaciones React.</p>
+                <p>En resumen, este módulo ha sido una inmersión profunda en los fundamentos de React, proporcionándome las herramientas y la comprensión necesarias para empezar a construir interfaces de usuario modernas y eficientes. La metacognición me ha permitido identificar mis estrategias de aprendizaje más efectivas y cómo puedo aplicarlas en futuros desafíos tecnológicos.</p>
+            </div>
+        </section>
+
+        <section class="bibliography">
+            <h2>Bibliografía</h2>
+            <ul>
+                <li>Mg. Jaime Suasnábar Terrel. (2024). <em>Material de Clase: SEMANA 06 - Fundamentos de React y Componentes.</em> [Documento PDF].</li>
+                <li>React. (s.f.). <em>Documentación Oficial de React.</em> <a href="https://react.dev/learn" target="_blank">https://react.dev/learn</a></li>
+                <li>MDN Web Docs. (s.f.). <em>JavaScript.</em> <a href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank">https://developer.mozilla.org/es/docs/Web/JavaScript</a></li>
+                <li>TypeScript. (s.f.). <em>Documentación Oficial de TypeScript.</em> <a href="https://www.typescriptlang.org/docs/" target="_blank">https://www.typescriptlang.org/docs/</a></li>
+                <li>Tailwind CSS. (s.f.). <em>Documentación Oficial de Tailwind CSS.</em> <a href="https://tailwindcss.com/docs" target="_blank">https://tailwindcss.com/docs</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="index.html#proyectos" class="nav-btn"><i class="fas fa-arrow-left"></i> Volver a Cuadernos</a>
+                <a href="semana07.html" class="nav-btn next">Ir a Semana 07 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

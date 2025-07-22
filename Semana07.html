@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Aprendizaje - Hooks de React</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
+            color: #E2E8F0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 32px auto;
+            background: rgba(34,41,70,0.95);
+            padding: 36px 28px;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+        h1 {
+            text-align: center;
+            color: #a7c7e7;
+            font-size: 2.7rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(34,41,70,0.3);
+            border-bottom: 3px solid #764ba2;
+            padding-bottom: 15px;
+        }
+        h2 {
+            color: #764ba2;
+            font-size: 2rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #232946;
+            padding-bottom: 8px;
+        }
+        h3, h4 {
+            color: #a7c7e7;
+            font-size: 1.3rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        ul, ol {
+            margin-left: 24px;
+            margin-bottom: 18px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .code-block {
+            background: #1a1a2e;
+            border-left: 4px solid #764ba2;
+            padding: 15px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.97em;
+            border-radius: 8px;
+            color: #a7c7e7;
+        }
+        .reflection {
+            background: linear-gradient(90deg, #232946 60%, #764ba2 100%);
+            border-left: 5px solid #a7c7e7;
+            padding: 24px;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.18);
+        }
+        .reflection h3 {
+            color: #a7c7e7;
+            margin-bottom: 10px;
+        }
+        .reflection p {
+            margin-bottom: 10px;
+        }
+        .bibliography {
+            background: #232946;
+            color: #E2E8F0;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.12);
+            margin-top: 40px;
+        }
+        .bibliography h2 {
+            color: #a7c7e7;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .bibliography ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .bibliography li {
+            margin-bottom: 10px;
+            background: rgba(118,75,162,0.10);
+            border-radius: 8px;
+            padding: 10px 15px;
+            border-left: 3px solid #764ba2;
+        }
+        a {
+            color: #a7c7e7;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #fff;
+        }
+        /* Botones de navegación */
+        .nav-buttons {
+            margin-top:2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            background: linear-gradient(90deg, #232946 60%, #1a1a2e 100%);
+            color: #a7c7e7;
+            padding: 12px 32px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.2);
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: #1a1a2e;
+            transform: scale(1.05);
+        }
+        .nav-btn.next {
+            background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(118,75,162,0.15);
+        }
+        .nav-btn.next:hover {
+            background: #667eea;
+        }
+        @media (max-width: 900px) {
+            .container {
+                padding: 16px 4px;
+            }
+            .nav-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reporte de Aprendizaje: Hooks en React</h1>
+        <p><strong>Compilado por:</strong> Mg. Jaime Suasnábar Terrel</p>
+
+        <h2>Temas Aprendidos: Definiciones y Procedimiento</h2>
+        <h3>Introducción a los Hooks de React</h3>
+        <ul>
+            <li>
+                <strong>Definición:</strong> Los Hooks fueron introducidos en React en la versión 16.8. Permiten a los componentes de tipo función tener acceso a la gestión de estado y otras características de React, haciendo que los componentes de clase sean casi innecesarios.
+            </li>
+            <li>
+                <strong>Gestión de Estado:</strong> Es el proceso de seguimiento y actualización del estado de una aplicación. El estado es la condición actual de una aplicación (ej. ubicación del usuario, artículos en el carrito, estado de un juego).
+            </li>
+            <li>
+                <strong>Estado Local:</strong> Es una función de JavaScript que permite crear y acceder al estado y al ciclo de vida del componente en React. El estado de un componente es un objeto que contiene los datos (variables) necesarios para representarlo en la interfaz u otro contexto.
+            </li>
+        </ul>
+
+        <h3>Tipos de Hooks Principales</h3>
+        <h4>1. Hook useState</h4>
+        <ul>
+            <li>
+                <strong>Definición:</strong> Es una propiedad del componente y su "setter" renderizable. El "setter" permite un renderizado automático en el DOM si el valor del `useState` cambió.
+            </li>
+            <li>
+                <strong>Sintaxis:</strong>
+                <div class="code-block">
+                    <pre>const [property, setProperty] = useState(initialValue)</pre>
+                </div>
+                <ul>
+                    <li>Acepta dos argumentos: la propiedad y su "setter", y el valor inicial de la propiedad.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Procedimiento de Uso:</strong>
+                <ol>
+                    <li>Importar `useState`.</li>
+                    <li>Inicializar `useState` (ej. `ush`).</li>
+                    <li>Leer el Estado.</li>
+                    <li>Actualizar el Estado.</li>
+                </ol>
+            </li>
+            <li>
+                <strong>Uso con Objetos:</strong> Al actualizar el estado de un objeto con `useState`, se sobrescribe todo el objeto.
+            </li>
+        </ul>
+
+        <h4>2. Hook useEffect</h4>
+        <ul>
+            <li>
+                <strong>Definición:</strong> Es una función que permite ejecutar código en eventos específicos del ciclo de vida del componente: Mount, Update de una o varias propiedades, y Post-render.
+            </li>
+            <li>
+                <strong>Sintaxis:</strong>
+                <div class="code-block">
+                    <pre>useEffect(&lt;function&gt;, &lt;dependency&gt;)</pre>
+                </div>
+                <ul>
+                    <li>Acepta dos argumentos: una función a ejecutar y una dependencia (opcional).</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Procedimiento de Uso:</strong>
+                <ol>
+                    <li>Importar `useEffect`.</li>
+                    <li>Insertar `useEffect` (ej. `ueh`).</li>
+                    <li>Codificar `useEffect` según la necesidad de ejecución.</li>
+                </ol>
+            </li>
+            <li>
+                <strong>Eventos de Ejecución:</strong>
+                <ul>
+                    <li><strong>Mount Component:</strong> Segundo argumento `array` vacío (`[]`).</li>
+                    <li><strong>Post Render:</strong> Sin segundo argumento.</li>
+                    <li><strong>Update useState:</strong> Segundo argumento listando los `useStates` a observar.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Casos de Uso:</strong> Obtención de datos (FETCHING), actualización directa del DOM, uso de Timers o Temporizadores.
+            </li>
+        </ul>
+
+        <h4>3. Hook useContext</h4>
+        <ul>
+            <li>
+                <strong>Definición:</strong> Es una unidad lógica que permite compartir información entre diversos componentes. Los componentes pueden acceder a datos y funciones en un Contexto compartido sin tener que pasar "props" explícitamente. React Context es una forma de administrar el estado globalmente.
+            </li>
+            <li>
+                <strong>Sintaxis (Provider):</strong>
+                <div class="code-block">
+                    <pre>
+export const myContext = React.createContext('Default value')
+&lt;myContext.Provider value={sharedData}&gt;
+  {/* children components */}
+&lt;/myContext.Provider&gt;
+                    </pre>
+                </div>
+            </li>
+            <li>
+                <strong>Sintaxis (Consumer):</strong>
+                <div class="code-block">
+                    <pre>const sharedData = useContext(MyContext)</pre>
+                </div>
+            </li>
+            <li>
+                <strong>Procedimiento de Creación del Contexto (Provider):</strong>
+                <ol>
+                    <li>Crear contexto:
+                        <ol type="a">
+                            <li>Importar `react`.</li>
+                            <li>Inicializar un contexto con `createContext` exportable.</li>
+                        </ol>
+                    </li>
+                    <li>Configurar el Proveedor de contexto: Envolver los componentes secundarios con `<MyContext.Provider>` y proporcionar el valor del estado.</li>
+                </ol>
+            </li>
+            <li>
+                <strong>Procedimiento de Uso del Contexto (Consumer):</strong>
+                <ol>
+                    <li>Importar `useContext`.</li>
+                    <li>Obtener el Contexto guardado disponible para todos los componentes.</li>
+                    <li>Mostrar datos obtenidos.</li>
+                </ol>
+            </li>
+        </ul>
+
+        <h4>4. Hook useReducer</h4>
+        <ul>
+            <li>
+                <strong>Definición:</strong> Es un administrador de estado en React, una alternativa a `useState`. Se utiliza cuando el estado de un componente es complejo y requiere más de una variable de estado, o cuando las transiciones de estado son más complejas. Un estado complejo puede tener una estructura de varios niveles (ej. objeto de objetos que contiene arrays).
+            </li>
+            <li>
+                <strong>Sintaxis:</strong>
+                <div class="code-block">
+                    <pre>
+const reducerFunction = (state, action) => {
+  switch (action.type) {
+    case 'option1':
+      return expression;
+    case 'option2':
+      return expression;
+    default:
+      return state;
+  }
+};
+const [state, dispatch] = useReducer(reducerFunction, initialState);
+dispatch({ type: option2 });
+                    </pre>
+                </div>
+            </li>
+            <li>
+                <strong>Procedimiento de Uso:</strong>
+                <ol>
+                    <li>Importar `useReducer`.</li>
+                    <li>Crear el reductor: Una función que recibe el estado actual y una acción, y devuelve el nuevo estado.</li>
+                    <li>Inicializar el hook `useReducer`: Recibe la función reductora y un valor inicial. Devuelve el estado actual y una función `dispatch`.</li>
+                    <li>Ejecutar el `useReducer`: Se ejecuta con la función `dispatch`.</li>
+                </ol>
+            </li>
+        </ul>
+
+        <h4>5. Custom Hooks (Hooks Personalizados)</h4>
+        <ul>
+            <li>
+                <strong>Definición:</strong> Son funciones creadas por el desarrollador que encapsulan parte de la lógica y estado de un componente para que pueda ser reutilizable en otros.
+            </li>
+            <li>
+                <strong>Buenas Prácticas:</strong>
+                <ul>
+                    <li><strong>Nombre de Hooks:</strong> Deben comenzar con `use` seguido de un nombre que describa su propósito (ej. `useEventListener`, `useFetch`).</li>
+                    <li><strong>Encapsulación:</strong> Encapsular solo una pieza de lógica por hook para mejorar la reutilizabilidad y mantener el enfoque.</li>
+                    <li><strong>Minimizar el Estado:</strong> Mantener el estado mínimo si el hook necesita manejarlo con `useState`.</li>
+                    <li><strong>Array de Dependencias:</strong> Prestar atención al array de dependencias de `useEffect`, incluyendo todas las variables utilizadas dentro del efecto.</li>
+                    <li><strong>Pruebas:</strong> Escribir pruebas unitarias para asegurar su correcto funcionamiento.</li>
+                    <li><strong>Documentación:</strong> Comentar los hooks personalizados explicando su función y cómo usarlos.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>6. Hook useNavigate (React Router Dom 6)</h4>
+        <ul>
+            <li>
+                <strong>Definición:</strong> Es una nueva incorporación a React Router Dom 6, reemplazando a `useHistory` y `useLocation` de versiones anteriores. Proporciona una API simple e intuitiva para navegar entre páginas y simplifica el manejo de cambios de URL.
+            </li>
+            <li>
+                <strong>Procedimiento de Uso:</strong>
+                <ol>
+                    <li>Importar `useNavigate`.</li>
+                    <li>Crear `useNavigate` (ej. `const navigate = useNavigate();`).</li>
+                    <li>Navegar (ej. `navigate('/ruta')`, `navigate(-1)` para retroceder, `navigate(1)` para avanzar).</li>
+                </ol>
+            </li>
+        </ul>
+
+        <h4>7. Hook useParams (React Router Dom)</h4>
+        <ul>
+            <li>
+                <strong>Definición:</strong> Devuelve un objeto de pares clave/valor de los parámetros dinámicos de la URL actual que coinciden con el `<Route path>`. Las rutas secundarias heredan todos los parámetros de sus rutas principales.
+            </li>
+            <li>
+                <strong>Procedimiento de Uso:</strong>
+                <ol>
+                    <li>Importar `useParams`.</li>
+                    <li>Crear `useParams` (ej. `const { id } = useParams();`). Debe coincidir con el `<Route path>`.</li>
+                </ol>
+            </li>
+        </ul>
+
+        <h2>Ejercicios de Laboratorio</h2>
+        <div class="reflection">
+            <h3>Ejercicios Propuestos</h3>
+            <ul>
+                <li>Desarrollar los ejercicios de la guía ejecutándose. (Aplicación práctica de los hooks descritos).</li>
+                <li>Implementar un formulario CRUD para una tabla de productos utilizando <strong>UseContext</strong> y <strong>UseReducer</strong>.</li>
+            </ul>
+            <p><em>Nota: El documento no incluye el código fuente de las soluciones a estos ejercicios, solo los enuncia.</em></p>
+        </div>
+
+        <h2>Resultados y Reflexión Final</h2>
+        <h3>¿Qué aprendí y cómo lo hice?</h3>
+        <p>
+            Durante esta sesión, he profundizado en el concepto y la aplicación de los Hooks de React, una característica fundamental que ha revolucionado la forma de construir componentes funcionales. Aprendí que los Hooks permiten a los componentes funcionales manejar el estado y el ciclo de vida, eliminando la necesidad de componentes de clase en la mayoría de los escenarios.
+        </p>
+        <ul>
+            <li>
+                <strong>`useState`</strong> para la gestión del estado local, incluyendo cómo inicializarlo, leerlo y actualizarlo, tanto para valores simples como para objetos. La clave es entender que el "setter" provoca un re-renderizado automático.
+            </li>
+            <li>
+                <strong>`useEffect`</strong> para manejar efectos secundarios, como la obtención de datos, la manipulación del DOM o el uso de temporizadores. Aprendí a controlar cuándo se ejecuta el efecto mediante el array de dependencias, distinguiendo entre el montaje del componente, el post-render y las actualizaciones de estado específicas.
+            </li>
+            <li>
+                <strong>`useContext`</strong> como una solución para la gestión del estado global, permitiendo compartir datos entre componentes sin la necesidad de "prop drilling". Entendí el patrón de `Provider` y `Consumer` para hacer que los datos estén disponibles en el árbol de componentes.
+            </li>
+            <li>
+                <strong>`useReducer`</strong> como una alternativa más robusta a `useState` para estados complejos o lógicas de estado más elaboradas, donde las transiciones de estado son más predecibles y centralizadas a través de una función reductora.
+            </li>
+            <li>
+                La importancia de los <strong>Custom Hooks</strong> para la reutilización de lógica con estado, siguiendo buenas prácticas de nomenclatura, encapsulación y manejo de dependencias.
+            </li>
+            <li>
+                Finalmente, los hooks de navegación de React Router Dom 6, <strong>`useNavigate`</strong> y <strong>`useParams`</strong>, que facilitan la navegación programática y la extracción de parámetros de la URL.
+            </li>
+        </ul>
+        <p>
+            El aprendizaje se realizó a través de la revisión de las definiciones, sintaxis y procedimientos detallados en el material proporcionado. La comprensión se consolidó al analizar los ejemplos implícitos y al considerar los ejercicios de laboratorio propuestos, que requieren la aplicación práctica de estos conceptos para construir funcionalidades como un CRUD de productos, lo cual refuerza la interconexión entre `useContext` y `useReducer` para la gestión de un estado más complejo y global.
+        </p>
+
+        <h3>Reflexión Metacognitiva</h3>
+        <div class="reflection">
+            <p>
+                Al reflexionar sobre este módulo de Hooks en React, me doy cuenta de la evolución significativa en mi comprensión del desarrollo front-end moderno. Inicialmente, la gestión del estado y los efectos secundarios en componentes de clase podía parecer un tanto verbosa y, a veces, confusa debido a la necesidad de entender el ciclo de vida de los componentes de clase. Sin embargo, la introducción de los Hooks ha simplificado enormemente este proceso.
+            </p>
+            <p>
+                Mi proceso de aprendizaje se centró en desglosar cada Hook individualmente, comprendiendo su propósito específico y su sintaxis. La clave fue entender que, aunque cada Hook tiene una función distinta, todos buscan resolver problemas comunes en el desarrollo de componentes funcionales de una manera más declarativa y concisa. Por ejemplo, la diferencia entre `useState` y `useReducer` no es solo una cuestión de complejidad del estado, sino también de cómo se prefiere gestionar las transiciones de estado: `useState` para lo simple y `useReducer` para lógicas más complejas y predecibles.
+            </p>
+            <p>
+                La capacidad de crear Custom Hooks es, para mí, el punto culminante, ya que fomenta la reutilización de código y la modularidad, lo que es esencial en proyectos grandes. Esto me lleva a pensar en cómo puedo aplicar estos principios no solo en React, sino en otras áreas de la programación donde la encapsulación de lógica es crucial.
+            </p>
+            <p>
+                En retrospectiva, el mayor desafío fue internalizar el concepto del array de dependencias en `useEffect` y cómo afecta el re-renderizado y la ejecución de efectos. Sin embargo, al entender que es el mecanismo de React para optimizar y prevenir bucles infinitos o efectos no deseados, su lógica se volvió clara. Este aprendizaje me ha empoderado para escribir código React más limpio, eficiente y mantenible, y me ha proporcionado una base sólida para abordar desafíos más complejos en el futuro.
+            </p>
+        </div>
+
+        <h2>Bibliografía</h2>
+        <div class="bibliography">
+            <ul>
+                <li>Etatvasoft. (s.f.). <em>React State Management</em>. Recuperado de <a href="https://www.etatvasoft.com/blog/react-state-management/" target="_blank">https://www.etatvasoft.com/blog/react-state-management/</a></li>
+                <li>React. (s.f.). <em>Hooks at a Glance</em>. Recuperado de <a href="https://react.dev/docs/hooks-overview.html" target="_blank">https://react.dev/docs/hooks-overview.html</a></li>
+            </ul>
+        </div>
+        <div class="nav-buttons">
+            <a href="index.html#proyectos" class="nav-btn"><i class="fas fa-arrow-left"></i> Volver a Cuadernos</a>
+            <a href="semana08.html" class="nav-btn next">Ir a Semana 08 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</body>
+</html>

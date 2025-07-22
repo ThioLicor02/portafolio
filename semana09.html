@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Laboratorio - Semana 09</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.7;
+            background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
+            color: #E2E8F0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 32px auto;
+            background: rgba(34,41,70,0.97);
+            padding: 36px 28px;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #764ba2;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 36px 24px;
+            border-radius: 18px 18px 0 0;
+            margin: -36px -28px 30px -28px;
+            box-shadow: 0 8px 32px rgba(34,41,70,0.18);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(34,41,70,0.3);
+            font-weight: 700;
+        }
+
+        .header h2 {
+            font-size: 1.3em;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            background: rgba(34,41,70,0.7);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .info-item {
+            background: #232946;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(34,41,70,0.12);
+        }
+
+        .info-item strong {
+            color: #a7c7e7;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .section {
+            margin: 30px 0;
+            padding: 25px;
+            border-left: 4px solid #764ba2;
+            background: rgba(34,41,70,0.8);
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.08);
+        }
+
+        .section h2 {
+            color: #a7c7e7;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #764ba2;
+        }
+
+        .section h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin: 20px 0 10px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .section h3:before {
+            content: "▶";
+            color: #764ba2;
+            position: absolute;
+            left: 0;
+        }
+
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .architecture-card {
+            background: #232946;
+            border: 2px solid #764ba2;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(34,41,70,0.12);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .architecture-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(118,75,162,0.18);
+        }
+
+        .architecture-card h4 {
+            color: #a7c7e7;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .code-block {
+            background-color: #1a1a2e;
+            color: #a7c7e7;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            position: relative;
+            border-left: 4px solid #764ba2;
+        }
+
+        .code-block:before {
+            content: "</>";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #764ba2;
+            font-size: 0.8em;
+        }
+
+        .exercise-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.12);
+        }
+
+        .exercise-box h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            padding-left: 0;
+        }
+
+        .exercise-box h3:before {
+            content: "🔧";
+            margin-right: 10px;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            background: #232946;
+            margin: 10px 0;
+            padding: 15px 15px 15px 50px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(34,41,70,0.12);
+            color: #E2E8F0;
+        }
+
+        .step-list li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #764ba2;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .tech-item {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 6px;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(34,41,70,0.12);
+        }
+
+        .results-box {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.12);
+        }
+
+        .results-box h3 {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .reflection-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.12);
+        }
+
+        .reflection-box:before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+
+        .reflection-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .bibliography {
+            background: #232946;
+            border-left: 4px solid #38ef7d;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            color: #E2E8F0;
+            box-shadow: 0 2px 8px rgba(34,41,70,0.08);
+        }
+
+        .bibliography h3 {
+            color: #38ef7d;
+            margin-bottom: 15px;
+        }
+
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bibliography li {
+            background: #1a1a2e;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(34,41,70,0.08);
+            border-left: 3px solid #38ef7d;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                margin: 10px;
+                padding: 12px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .info-grid, .architecture-grid, .tech-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Botones de navegación */
+        .nav-buttons {
+            margin-top:2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            background: linear-gradient(90deg, #232946 60%, #1a1a2e 100%);
+            color: #a7c7e7;
+            padding: 12px 32px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.2);
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: #1a1a2e;
+            transform: scale(1.05);
+        }
+        .nav-btn.next {
+            background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(118,75,162,0.15);
+        }
+        .nav-btn.next:hover {
+            background: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SEMANA 09 </h1>
+            <h2>Arquitecturas Web y Configuración de Servidores</h2>
+        </div>
+
+        <div class="section">
+            <h2>1. Temas Aprendidos: Definiciones y Procedimientos</h2>
+            <h3>1.1 Arquitecturas Cliente-Servidor</h3>
+            <p>El desarrollo de aplicaciones para Internet se basa en una <span class="highlight">arquitectura cliente-servidor</span>, donde el cliente (navegador) solicita recursos al servidor, que procesa las peticiones y devuelve las respuestas correspondientes.</p>
+            <div class="architecture-grid">
+                <div class="architecture-card">
+                    <h4>MPA - Multi Page Application</h4>
+                    <p>Aplicaciones web clásicas que contienen múltiples páginas físicas. Cada página tiene su propio archivo HTML, CSS, JS y recursos. Las páginas se conectan mediante enlaces y sus rutas son accesibles a través de directorios.</p>
+                </div>
+                <div class="architecture-card">
+                    <h4>SPA - Single Page Application</h4>
+                    <p>Arquitectura donde el servidor dispone únicamente de una página HTML que carga todos los estilos y componentes durante el primer acceso. JavaScript maneja la navegación entre componentes, solicitando únicamente datos puros al servidor.</p>
+                </div>
+                <div class="architecture-card">
+                    <h4>Arquitectura Multicapa (MVC)</h4>
+                    <p>Técnica Server Side que separa sistemas complejos en capas según responsabilidades. Implementa el patrón Modelo-Vista-Controlador para mejor organización del código.</p>
+                </div>
+                <div class="architecture-card">
+                    <h4>Arquitectura Hexagonal</h4>
+                    <p>También llamada "puertos y adaptadores", separa la aplicación en capas independientes. Utiliza puertos (puntos de entrada/salida) y adaptadores (implementaciones de conexión) para lograr independencia entre componentes.</p>
+                </div>
+            </div>
+            <h3>1.2 Servidores Web y Software</h3>
+            <p>Los servidores web son equipos de gran potencia con programas (daemon) que almacenan archivos web y los transmiten a usuarios mediante HTTP bajo arquitectura cliente-servidor.</p>
+            <div class="tech-list">
+                <div class="tech-item">Apache HTTP Server</div>
+                <div class="tech-item">NGINX</div>
+                <div class="tech-item">Apache Tomcat</div>
+                <div class="tech-item">Microsoft IIS</div>
+                <div class="tech-item">Node.js</div>
+                <div class="tech-item">LiteSpeed</div>
+            </div>
+            <h3>1.3 Servicios de Hosting y Cloud Computing</h3>
+            <p><strong>Hosting:</strong> Servicio de alojamiento web que permite acceder a contenidos desde cualquier dispositivo conectado a Internet. Incluye planes de costo, espacio y transferencia.</p>
+            <p><strong>Cloud Computing:</strong> Disponibilidad bajo demanda de recursos de computación como servicios a través de Internet. Permite pago por uso sin preocuparse por aprovisionamiento de recursos.</p>
+            <h3>1.4 Configuración de Servidores Web</h3>
+            <p>Proceso de ajustar y optimizar servidores para gestionar solicitudes HTTP de manera eficiente y segura.</p>
+            <div class="code-block">
+# Parámetros esenciales en Apache HTTP Server
+DocumentRoot "/var/www/html"
+Listen 80
+ServerName mi-servidor.com
+DirectoryIndex index.html
+ErrorDocument 404 /error/404.html
+SSLEngine on
+MaxClients 150
+Timeout 300
+            </div>
+            <h3>1.5 Apache Tomcat y JSP</h3>
+            <p>Tomcat es un contenedor de servlets y JSP que ejecuta aplicaciones web Java. Traduce código JSP a servlets, los compila y ejecuta, generando respuestas HTML.</p>
+            <h3>1.6 Gestores de Proyectos: Maven</h3>
+            <p>Maven es una herramienta libre para gestionar proyectos Java, basada en archivos XML. Estandariza estructuras de aplicaciones y configuraciones.</p>
+            <div class="code-block">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;org.example&lt;/groupId&gt;
+    &lt;artifactId&gt;web-app&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+&lt;/project&gt;
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. Ejercicios de Laboratorio</h2>
+            <div class="exercise-box">
+                <h3>Ejercicio 01: Instalación de Servidor Web y Herramientas</h3>
+                <ol class="step-list">
+                    <li><strong>Instalación de JDK Jakarta:</strong> Descarga de OpenJDK desde https://jdk.java.net/, descompresión en c:\java y configuración de variables de entorno JAVA_HOME y PATH.</li>
+                    <li><strong>Instalación de IntelliJ IDEA:</strong> Descarga de la versión Community Edition desde https://www.jetbrains.com/idea/ para el desarrollo de aplicaciones Java.</li>
+                    <li><strong>Instalación de Apache Tomcat:</strong> Descarga del instalador desde http://tomcat.apache.org/, selección de la versión 10.x con instalación completa incluyendo documentación y accesos directos.</li>
+                    <li><strong>Configuración de puertos:</strong> Configuración por defecto del puerto 8080 para HTTP y especificación de la ubicación de Java SE.</li>
+                </ol>
+            </div>
+            <div class="exercise-box">
+                <h3>Ejercicio 02: Creación y Configuración de Proyecto Web</h3>
+                <ol class="step-list">
+                    <li><strong>Creación de proyecto en IntelliJ IDEA:</strong> Configuración de nuevo proyecto web con soporte para JSP y servlets.</li>
+                    <li><strong>Configuración del proyecto:</strong> Establecimiento de la estructura de directorios, configuración del JDK y integración con Tomcat.</li>
+                    <li><strong>Configuración de Maven:</strong> Creación del archivo pom.xml con dependencias necesarias para el desarrollo web.</li>
+                    <li><strong>Despliegue y pruebas:</strong> Utilización de comandos Maven para compilar, empaquetar y desplegar la aplicación en Tomcat.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="results-box">
+            <h3>3. Resultados Obtenidos</h3>
+            <p>✅ <strong>Instalación exitosa</strong> de JDK Jakarta 19.0.2 con configuración correcta de variables de entorno</p>
+            <p>✅ <strong>Configuración completa</strong> de IntelliJ IDEA Community Edition con plugins para desarrollo web</p>
+            <p>✅ <strong>Implementación funcional</strong> de Apache Tomcat 10.x con acceso mediante http://localhost:8080</p>
+            <p>✅ <strong>Creación de proyecto web</strong> con estructura Maven y despliegue automatizado</p>
+            <p>✅ <strong>Verificación de funcionamiento</strong> mediante comandos Maven: clean, compile, package, install y deploy</p>
+            <p>✅ <strong>Comprensión teórica</strong> de arquitecturas web, diferencias entre MPA y SPA, y configuración de servidores</p>
+        </div>
+
+        <div class="reflection-box">
+            <div class="reflection-content">
+                <h3>4. Reflexión Final: Aprendizaje y Metacognición</h3>
+                <h4>¿Qué aprendí y cómo lo hice?</h4>
+                <p>Durante esta semana de laboratorio, he adquirido conocimientos fundamentales sobre <strong>arquitecturas web y configuración de servidores</strong>. El proceso de aprendizaje fue gradual y práctico, comenzando con conceptos teóricos y culminando con implementación práctica.</p>
+                <p><strong>Aspectos técnicos dominados:</strong></p>
+                <ul style="color: white; margin-left: 20px;">
+                    <li>Comprensión profunda de las diferencias entre MPA y SPA</li>
+                    <li>Configuración de entornos de desarrollo Java con JDK, IDE y servidor</li>
+                    <li>Manejo de Maven como gestor de dependencias y construcción de proyectos</li>
+                    <li>Configuración y administración de Apache Tomcat</li>
+                </ul>
+                <h4>Reflexión Metacognitiva</h4>
+                <p>Mi proceso de aprendizaje se caracterizó por la <strong>construcción progresiva del conocimiento</strong>. Inicialmente, los conceptos de arquitecturas web parecían abstractos, pero la práctica con herramientas reales como Tomcat y Maven me permitió <em>contextualizar y solidificar estos conceptos</em>.</p>
+                <p>Identifiqué que aprendo mejor mediante la <strong>combinación de teoría y práctica inmediata</strong>. La instalación paso a paso de las herramientas me ayudó a comprender no solo el "qué" sino el "por qué" de cada configuración. Los errores encontrados durante la instalación se convirtieron en <em>oportunidades de aprendizaje profundo</em>.</p>
+                <p>El aspecto más desafiante fue comprender la arquitectura hexagonal y su aplicación práctica. Superé esta dificultad mediante <strong>diagramación mental</strong> y comparación con arquitecturas más familiares como MVC.</p>
+                <p><strong>Estrategias metacognitivas aplicadas:</strong></p>
+                <ul style="color: white; margin-left: 20px;">
+                    <li><em>Autorregulación:</em> Planificación de tiempos para cada ejercicio</li>
+                    <li><em>Monitoreo:</em> Verificación constante de cada paso de instalación</li>
+                    <li><em>Evaluación:</em> Reflexión sobre errores y búsqueda de soluciones alternativas</li>
+                </ul>
+                <p>Este laboratorio me ha preparado para <strong>proyectos web más complejos</strong> y me ha dado la confianza para explorar tecnologías complementarias como Spring Boot o microservicios.</p>
+            </div>
+        </div>
+
+        <div class="bibliography">
+            <h3>5. Bibliografía</h3>
+            <ul>
+                <li><strong>Libros:</strong>
+                    <br>• Gourley, D. & Totty, B. (2002). <em>HTTP: The Definitive Guide</em>. O'Reilly Media.
+                    <br>• Walls, C. & Breidenbach, R. (2019). <em>Spring Boot in Action</em>. Manning Publications.
+                    <br>• Hunter, J. & Crawford, W. (2001). <em>Java Servlet Programming</em>. O'Reilly Media.
+                </li>
+                <li><strong>Documentación Oficial:</strong>
+                    <br>• Oracle Corporation. (2024). <em>Java Platform, Enterprise Edition Documentation</em>. https://docs.oracle.com/javaee/
+                    <br>• Apache Software Foundation. (2024). <em>Apache Tomcat Documentation</em>. https://tomcat.apache.org/tomcat-10.1-doc/
+                    <br>• Apache Software Foundation. (2024). <em>Apache Maven Documentation</em>. https://maven.apache.org/guides/
+                </li>
+                <li><strong>Recursos Web:</strong>
+                    <br>• OpenJDK Community. (2024). <em>OpenJDK Official Website</em>. https://openjdk.java.net/
+                    <br>• JetBrains. (2024). <em>IntelliJ IDEA Documentation</em>. https://www.jetbrains.com/help/idea/
+                    <br>• Mozilla Developer Network. (2024). <em>Web Architecture Overview</em>. https://developer.mozilla.org/
+                </li>
+            </ul>
+        </div>
+        <div class="nav-buttons">
+            <a href="index.html#proyectos" class="nav-btn"><i class="fas fa-arrow-left"></i> Volver a Cuadernos</a>
+            <a href="semana10.html" class="nav-btn next">Ir a Semana 10 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</body>
+</html>

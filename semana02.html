@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno de Aprendizaje - Semana 2</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.7;
+            color: #E2E8F0;
+            background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .notebook {
+            background: rgba(34, 41, 70, 0.95);
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            overflow: hidden;
+            margin: 32px 0;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+            color: #fff;
+            padding: 36px 24px;
+            text-align: center;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+        }
+
+        .header h1 {
+            font-size: 2.7rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(34,41,70,0.3);
+            font-weight: 700;
+        }
+
+        .header .course-info {
+            font-size: 1.15rem;
+            opacity: 0.95;
+            margin-top: 10px;
+        }
+
+        .content {
+            padding: 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            border-left: 4px solid #764ba2;
+            padding-left: 24px;
+            background: rgba(34, 41, 70, 0.7);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.08);
+        }
+
+        .section-title {
+            color: #a7c7e7;
+            font-size: 1.7rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .section-title::before {
+            content: "⭐";
+            font-size: 1.5rem;
+        }
+
+        .subsection {
+            margin-bottom: 25px;
+            background: rgba(34,41,70,0.5);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #764ba2;
+        }
+
+        .subsection h3 {
+            color: #a7c7e7;
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .definition-box {
+            background: rgba(118,75,162,0.15);
+            border-left: 4px solid #a7c7e7;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 7px;
+        }
+
+        .definition-box strong {
+            color: #a7c7e7;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin: 20px 0;
+        }
+
+        .tech-card {
+            background: rgba(34,41,70,0.8);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 18px;
+            box-shadow: 0 4px 12px rgba(34,41,70,0.12);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(118,75,162,0.18);
+        }
+
+        .tech-card h4 {
+            color: #a7c7e7;
+            margin-bottom: 10px;
+            font-size: 1.15rem;
+        }
+
+        .principles-list {
+            background: rgba(118,75,162,0.10);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #a7c7e7;
+        }
+
+        .principles-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .principles-list li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #E2E8F0;
+        }
+
+        .principles-list li::before {
+            content: "🌐";
+            position: absolute;
+            left: 0;
+        }
+
+        .lab-exercises {
+            background: rgba(118,75,162,0.13);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #a7c7e7;
+        }
+
+        .exercise {
+            margin: 15px 0;
+            padding: 10px 0;
+            border-bottom: 1px dotted #a7c7e7;
+        }
+
+        .exercise:last-child {
+            border-bottom: none;
+        }
+
+        .reflection-section {
+            background: linear-gradient(135deg, #232946 80%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            color: #E2E8F0;
+            box-shadow: 0 8px 32px rgba(34,41,70,0.18);
+        }
+
+        .reflection-section h2 {
+            color: #a7c7e7;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .reflection-text {
+            background: rgba(34,41,70,0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-style: italic;
+            line-height: 1.8;
+            color: #a7c7e7;
+        }
+
+        .bibliography {
+            background: #232946;
+            color: #E2E8F0;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.12);
+        }
+
+        .bibliography h2 {
+            color: #a7c7e7;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .bib-item {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(118,75,162,0.10);
+            border-radius: 8px;
+            border-left: 3px solid #a7c7e7;
+        }
+
+        .bib-item strong {
+            color: #a7c7e7;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #a7c7e7;
+            margin-top: 40px;
+            border-radius: 0 0 18px 18px;
+        }
+
+        /* Botones de navegación */
+        .nav-buttons {
+            margin-top:2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            background: linear-gradient(90deg, #232946 60%, #1a1a2e 100%);
+            color: #a7c7e7;
+            padding: 12px 32px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.2);
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: #1a1a2e;
+            transform: scale(1.05);
+        }
+        .nav-btn.next {
+            background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(118,75,162,0.15);
+        }
+        .nav-btn.next:hover {
+            background: #667eea;
+        }
+
+        @media (max-width: 900px) {
+            .content {
+                padding: 20px 8px;
+            }
+            .nav-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="notebook">
+            <div class="header">
+                <h1>📚 SEMANA 02 </h1>
+                <div class="course-info">
+                    <p>IS093 – Desarrollo de Aplicaciones Web</p>
+                    <p>Fundamentos de la Tecnología Web</p>
+                    <p>Prof. Mg. Jaime Suasnábar Terrel</p>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="section">
+                    <h2 class="section-title">Temas Aprendidos - Definiciones y Procedimientos</h2>
+
+                    <div class="subsection">
+                        <h3>🌐 Tecnologías de Desarrollo de Software</h3>
+                        <div class="definition-box">
+                            <p><strong>Definición:</strong> La transformación digital ha generado dos tecnologías principales para el desarrollo de software orientadas a satisfacer las exigencias del mercado actual.</p>
+                        </div>
+                        <div class="tech-grid">
+                            <div class="tech-card">
+                                <h4>Tecnología Web</h4>
+                                <p>Basada en estándares abiertos, multiplataforma, ejecutable en navegadores web. Utiliza HTML, CSS, JavaScript y tecnologías web complementarias.</p>
+                            </div>
+                            <div class="tech-card">
+                                <h4>Tecnología de Software Nativo</h4>
+                                <p>Desarrollado específicamente para una plataforma (Windows, Linux, Android, iOS). Optimizado para el rendimiento del sistema operativo específico.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>🔓 Open Web Platform - Web Abierta</h3>
+                        <div class="definition-box">
+                            <p><strong>Definición:</strong> Colección de tecnologías abiertas y estándares desarrollados por organismos como W3C, Unicode Consortium, Internet Engineering Task Force, y ECMA International.</p>
+                        </div>
+                        <div class="principles-list">
+                            <h4>Principios Fundamentales:</h4>
+                            <ul>
+                                <li>Evita ser controlado por ninguna empresa</li>
+                                <li>Aporta transparencia, haciendo visibles todos los niveles</li>
+                                <li>Capacidad de integración con fuentes externas</li>
+                                <li>Documentación y especificaciones abiertas</li>
+                                <li>Libertad de uso</li>
+                                <li>Cadena de favores: compartir conocimiento adquirido</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>📋 Estándares Internacionales para Desarrollo Web</h3>
+                        
+                        <h4>🔧 Tecnologías Básicas:</h4>
+                        <div class="tech-grid">
+                            <div class="tech-card">
+                                <h4>HTTP/HTTPS</h4>
+                                <p>Protocolo de Transferencia de Hipertexto para la transmisión de documentos hipermedia como HTML.</p>
+                            </div>
+                            <div class="tech-card">
+                                <h4>HTML</h4>
+                                <p>Lenguaje de Marcado de Hipertexto utilizado para describir y definir el contenido de páginas web estructuradas.</p>
+                            </div>
+                            <div class="tech-card">
+                                <h4>CSS</h4>
+                                <p>Hojas de Estilo en Cascada para describir el aspecto y presentación del contenido web.</p>
+                            </div>
+                            <div class="tech-card">
+                                <h4>JavaScript</h4>
+                                <p>Lenguaje de programación que se ejecuta en el navegador para crear sitios web interactivos y aplicaciones avanzadas.</p>
+                            </div>
+                            <div class="tech-card">
+                                <h4>XML</h4>
+                                <p>Lenguaje de Marcado Extensible para almacenar e intercambiar información estructurada entre plataformas.</p>
+                            </div>
+                        </div>
+
+                        <h4>🎨 Tecnologías Complementarias:</h4>
+                        <div class="tech-grid">
+                            <div class="tech-card">
+                                <h4>Web APIs</h4>
+                                <p>Interfaces de Programación de Aplicaciones Web para manipular DOM, reproducir multimedia y generar gráficos 3D.</p>
+                            </div>
+                            <div class="tech-card">
+                                <h4>SVG</h4>
+                                <p>Gráficos Vectoriales Escalables que permiten imágenes como conjuntos de vectores que se escalan sin pérdida de calidad.</p>
+                            </div>
+                            <div class="tech-card">
+                                <h4>WebGL</h4>
+                                <p>API JavaScript para dibujar gráficos 3D o 2D utilizando elementos HTML5 canvas.</p>
+                            </div>
+                            <div class="tech-card">
+                                <h4>MathML</h4>
+                                <p>Lenguaje de Marcado Matemático para mostrar ecuaciones y sintaxis matemáticas complejas.</p>
+                            </div>
+                            <div class="tech-card">
+                                <h4>ARIA</h4>
+                                <p>Aplicaciones de Internet Rica Accesibles para personas con discapacidad.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>🌍 DNS - Sistema de Nombres de Dominio</h3>
+                        <div class="definition-box">
+                            <p><strong>Definición:</strong> DNS es el directorio telefónico de Internet. Traduce nombres de dominio legibles por humanos (como www.uncp.edu.pe) a direcciones IP que los navegadores necesitan para cargar recursos de Internet.</p>
+                            <p><strong>Procedimiento:</strong> Usuario ingresa dominio → DNS traduce a IP → Navegador se conecta al servidor → Se cargan los recursos web.</p>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>💻 Desarrollo Frontend vs Backend</h3>
+                        <div class="tech-grid">
+                            <div class="tech-card">
+                                <h4>🎨 Frontend (Cliente)</h4>
+                                <p><strong>Definición:</strong> Parte de la programación web enfocada en la interfaz y experiencia del usuario.</p>
+                                <p><strong>Tecnologías:</strong> HTML, CSS, JavaScript</p>
+                                <p><strong>Función:</strong> Todo lo que los usuarios ven e interactúan en una página web.</p>
+                            </div>
+                            <div class="tech-card">
+                                <h4>⚙️ Backend (Servidor)</h4>
+                                <p><strong>Definición:</strong> Parte que maneja la lógica, base de datos y funcionamiento interno de aplicaciones.</p>
+                                <p><strong>Tecnologías:</strong> Python, Java, PHP, Node.js, Ruby</p>
+                                <p><strong>Función:</strong> Motor que hace posible el funcionamiento del frontend.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>🎯 Diseño UX/UI</h3>
+                        <div class="definition-box">
+                            <p><strong>UI (User Interface):</strong> Se refiere a los mockups y diseño visual de la interfaz. Herramientas: Figma, Adobe XD.</p>
+                            <p><strong>UX (User Experience):</strong> La experiencia completa que tiene el usuario al interactuar con productos o servicios. Objetivo: crear soluciones agradables, intuitivas, atractivas y eficientes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Ejercicios de Laboratorio - Resultados</h2>
+                    <div class="lab-exercises">
+                        <div class="exercise">
+                            <h4>📝 Ejercicio 01: Visual Studio Code - Reconocimiento</h4>
+                            <p><strong>Resultado:</strong> Familiarización con la herramienta de desarrollo integrado, identificación de áreas de la pantalla principal y aplicaciones de la barra de menús.</p>
+                        </div>
+                        <div class="exercise">
+                            <h4>⌨️ Ejercicio 02: Paleta de Comandos</h4>
+                            <p><strong>Resultado:</strong> Activación y uso práctico de la paleta de comandos, incluyendo ejemplos con GitHub Codespaces para desarrollo en la nube.</p>
+                        </div>
+                        <div class="exercise">
+                            <h4>🔧 Ejercicio 03: Terminal y Git</h4>
+                            <p><strong>Resultado:</strong> Uso efectivo de la terminal integrada con comandos git: init, add, commit, checkout, push. Manejo de ramas y merge en GitHub.</p>
+                        </div>
+                        <div class="exercise">
+                            <h4>⚡ Ejercicio 04: Emmet y Fragmentos</h4>
+                            <p><strong>Resultado:</strong> Implementación de disparadores Emmet para generación rápida de código HTML y CSS. Creación y uso de fragmentos personalizados.</p>
+                        </div>
+                        <div class="exercise">
+                            <h4>⌨️ Ejercicio 05: Keyboard Shortcuts</h4>
+                            <p><strong>Resultado:</strong> Dominio de atajos de teclado esenciales para mejorar la productividad en el desarrollo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reflection-section">
+            <h2>🤔 Reflexión Final</h2>
+            
+            <div class="reflection-text">
+                <h3>¿Qué aprendí y cómo lo hice?</h3>
+                <p>Durante esta primera semana de fundamentos de tecnología web, he construido una base sólida de conocimiento que abarca desde los conceptos más básicos hasta las herramientas más avanzadas del desarrollo web moderno.</p>
+                
+                <p><strong>Aprendizajes Técnicos:</strong> Comprendí la diferencia fundamental entre tecnología web y software nativo, donde la primera ofrece ventajas de multiplataforma y estándares abiertos. Los estándares internacionales como HTML, CSS, JavaScript, HTTP/HTTPS se revelaron como los pilares fundamentales que sostienen toda la experiencia web moderna.</p>
+                
+                <p><strong>Comprensión Sistémica:</strong> El concepto de DNS como "directorio telefónico" de Internet me ayudó a visualizar cómo los usuarios acceden a los recursos web mediante nombres comprensibles que se traducen a direcciones IP. La arquitectura cliente-servidor con Frontend y Backend quedó claramente diferenciada en términos de responsabilidades y tecnologías.</p>
+            </div>
+
+            <div class="reflection-text">
+                <h3>📝 Reflexión Metacognitiva</h3>
+                <p>Mi proceso de aprendizaje durante esta semana siguió un patrón constructivista donde cada concepto se construyó sobre el anterior. Inicié con una perspectiva fragmentada de las tecnologías web, pero gradualmente desarrollé una visión holística del ecosistema web.</p>
+                
+                <p><strong>Estrategias de Aprendizaje Empleadas:</strong></p>
+                <p>• <em>Aprendizaje activo:</em> No me limité a la teoría, sino que practiqué cada concepto en Visual Studio Code</p>
+                <p>• <em>Conexión conceptual:</em> Relacioné cada tecnología con su propósito específico en el desarrollo web</p>
+                <p>• <em>Experimentación práctica:</em> Los ejercicios de laboratorio me permitieron internalizar los conocimientos teóricos</p>
+                
+                <p><strong>Metacognición del Proceso:</strong> Reconozco que mi comprensión evolucionó de memorizar definiciones a entender las interrelaciones entre tecnologías. La práctica con herramientas como Git y Emmet no solo me enseñó comandos, sino que me hizo consciente de la importancia del flujo de trabajo eficiente en el desarrollo.</p>
+                
+                <p><strong>Áreas de Crecimiento Identificadas:</strong> Aunque domino los conceptos básicos, reconozco que necesito profundizar en las tecnologías complementarias como WebGL y SVG. Mi próximo objetivo es aplicar estos conocimientos en proyectos reales para consolidar el aprendizaje.</p>
+                
+                <p>Esta experiencia metacognitiva me ha enseñado que el aprendizaje efectivo en tecnología web requiere equilibrio entre comprensión teórica y aplicación práctica, además de mantener una perspectiva sistémica que conecte todas las piezas del ecosistema web.</p>
+            </div>
+        </div>
+
+        <div class="bibliography">
+            <h2>📚 Bibliografía</h2>
+            
+            <div class="bib-item">
+                <strong>Estándares Web Oficiales:</strong>
+                <p>• HTML Living Standard - WHATWG: https://html.spec.whatwg.org/</p>
+                <p>• CSS Specifications - W3C: https://www.w3.org/Style/CSS/Overview.en.html</p>
+                <p>• HTTP Working Group Specifications: https://httpwg.org/specs/</p>
+            </div>
+
+            <div class="bib-item">
+                <strong>Documentación Técnica:</strong>
+                <p>• XML 1.0 Specification - W3C: https://www.w3.org/TR/xml/</p>
+                <p>• ECMAScript Language Specification: https://www.w3.org/TR/DOM-Level-2-HTML/ecma-script-binding.html</p>
+                <p>• WAI-ARIA Authoring Practices: https://www.w3.org/TR/html-aria/</p>
+            </div>
+
+            <div class="bib-item">
+                <strong>Herramientas de Desarrollo:</strong>
+                <p>• Emmet Documentation: https://docs.emmet.io/</p>
+                <p>• Visual Studio Code Documentation: https://code.visualstudio.com/docs</p>
+                <p>• Git Documentation: https://git-scm.com/doc</p>
+            </div>
+
+            <div class="bib-item">
+                <strong>Libros de Referencia:</strong>
+                <p>• Flanagan, David. "JavaScript: The Definitive Guide". O'Reilly Media.</p>
+                <p>• Duckett, Jon. "HTML and CSS: Design and Build Websites". Wiley.</p>
+                <p>• Brown, Ethan. "Web Development with Node and Express". O'Reilly Media.</p>
+            </div>
+
+            <div class="bib-item">
+                <strong>Recursos Académicos:</strong>
+                <p>• Mozilla Developer Network (MDN): https://developer.mozilla.org/</p>
+                <p>• W3Schools Web Technologies: https://www.w3schools.com/</p>
+                <p>• Can I Use - Browser Support Tables: https://caniuse.com/</p>
+            </div>
+            <div class="nav-buttons">
+                <a href="index.html#proyectos" class="nav-btn"><i class="fas fa-arrow-left"></i> Volver a Cuadernos</a>
+                <a href="semana03.html" class="nav-btn next">Ir a Semana 03 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

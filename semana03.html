@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap vs Tailwind CSS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #764ba2;
+            --secondary: #667eea;
+            --accent: #38ef7d;
+            --dark: #232946;
+            --darker: #1a1a2e;
+            --light: #E2E8F0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            color: var(--light);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            border-radius: 0 0 18px 18px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 8px rgba(34,41,70,0.3);
+        }
+        h2 {
+            font-size: 2rem;
+            color: var(--accent);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .card {
+            background: linear-gradient(135deg, var(--darker) 60%, var(--dark) 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.18);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(34,41,70,0.25);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .card-logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 1rem;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .bootstrap-logo {
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/52480f9f-a6ec-4ac8-9a25-12cea2094d95.png');
+        }
+        .tailwind-logo {
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5032e8f7-2701-425a-bda4-486ac3cad0dc.png');
+        }
+        .feature-list {
+            list-style-type: none;
+        }
+        .feature-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+        }
+        .feature-list li:before {
+            content: "✓";
+            color: var(--accent);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        .code-example {
+            background: var(--darker);
+            border-left: 4px solid var(--secondary);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+            color: var(--light);
+            border-radius: 8px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: none;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.18);
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+        .btn-secondary {
+            background: linear-gradient(90deg, var(--dark) 60%, var(--darker) 100%);
+            color: var(--accent);
+        }
+        .btn-secondary:hover {
+            background: var(--darker);
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .lab-exercise {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--darker) 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.18);
+            border-left: 4px solid var(--accent);
+        }
+        .lab-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .lab-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 1rem;
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1284fc30-768a-4563-a820-9aeca3e62117.png');
+            background-size: contain;
+        }
+        .reflection {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--darker) 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+            color: var(--light);
+        }
+        footer {
+            background: var(--darker);
+            color: var(--light);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-radius: 18px 18px 0 0;
+        }
+        .bibliography {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .bibliography li {
+            margin-bottom: 0.5rem;
+            background: rgba(118,75,162,0.15);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            color: var(--light);
+        }
+        .nav-buttons {
+            margin: 2rem 0 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .container {
+                padding: 0 8px;
+            }
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Bootstrap vs Tailwind CSS</h1>
+            <p>Comparativa de frameworks para interfaces modernas</p>
+        </div>
+    </header>
+    <main class="container">
+        <section>
+            <h2>Introducción</h2>
+            <p>En el desarrollo web moderno, los frameworks CSS como Bootstrap y Tailwind CSS se han convertido en herramientas esenciales para crear interfaces de usuario atractivas y responsivas de manera eficiente. Este documento explora ambos frameworks, comparando sus enfoques, ventajas y desventajas.</p>
+            <div class="comparison-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-logo bootstrap-logo"></div>
+                        <h3>Bootstrap</h3>
+                    </div>
+                    <p>Un framework CSS completo que proporciona componentes preconstruidos y un sistema de cuadrícula para un desarrollo rápido.</p>
+                    <ul class="feature-list">
+                        <li>Componentes UI preconstruidos</li>
+                        <li>Sistema de grid responsive</li>
+                        <li>Utiliza LESS/Sass</li>
+                        <li>Gran comunidad y documentación</li>
+                        <li>Enfoque semántico</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-logo tailwind-logo"></div>
+                        <h3>Tailwind CSS</h3>
+                    </div>
+                    <p>Un framework CSS utility-first que permite crear diseños personalizados directamente en tu markup.</p>
+                    <ul class="feature-list">
+                        <li>Enfoque utility-first</li>
+                        <li>Alta personalización</li>
+                        <li>Sin componentes predefinidos</li>
+                        <li>Tamaño de archivo optimizable</li>
+                        <li>Flexibilidad extrema</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>Temas Aprendidos</h2>
+            <h3>Definiciones Clave</h3>
+            <div class="code-example">
+                <code>Framework CSS</code>: Conjunto de herramientas predefinidas que facilitan el diseño y desarrollo de interfaces web mediante clases y componentes reutilizables.
+            </div>
+            <h3>Bootstrap: Enfoque Component-Based</h3>
+            <p>Bootstrap proporciona componentes completos como navbars, cards y modales que puedes usar directamente o personalizar mediante variables Sass.</p>
+            <h3>Tailwind CSS: Enfoque Utility-First</h3>
+            <p>Tailwind ofrece clases atómicas que puedes combinar para crear cualquier diseño sin salir de tu HTML, permitiendo diseños completamente únicos.</p>
+        </section>
+        <section class="lab-exercise">
+            <div class="lab-title">
+                <div class="lab-icon"></div>
+                <h3>Ejercicio de Laboratorio: Crear un Componente con Ambos Frameworks</h3>
+            </div>
+            <p><strong>Objetivo:</strong> Implementar el mismo componente de interfaz de usuario usando Bootstrap y Tailwind CSS para comprender sus diferencias.</p>
+            <h4>Procedimiento:</h4>
+            <ol>
+                <li>Elegir un componente común (ej. navbar, card, button group)</li>
+                <li>Implementarlo con Bootstrap usando sus clases predefinidas</li>
+                <li>Implementar el mismo diseño con Tailwind CSS utilizando clases utilitarias</li>
+                <li>Comparar la cantidad de código HTML y CSS requerido</li>
+                <li>Analizar la facilidad de personalización en cada enfoque</li>
+            </ol>
+            <h4>Resultados Esperados:</h4>
+            <ul>
+                <li>Implementación funcional del componente en ambos frameworks</li>
+                <li>Identificación de las diferencias fundamentales en el enfoque</li>
+                <li>Reconocimiento de los escenarios donde cada framework brilla</li>
+            </ul>
+            <div class="code-example">
+                <strong>Conclusión del ejercicio:</strong> Bootstrap es ideal para prototipado rápido usando componentes predefinidos, mientras que Tailwind ofrece más flexibilidad para diseños únicos con un mayor control sobre el resultado final.
+            </div>
+        </section>
+        <section class="reflection">
+            <h2>Reflexión Metacognitiva</h2>
+            <p>Al explorar estos dos frameworks modernos de CSS, comprendí que la elección entre Bootstrap y Tailwind CSS depende en gran medida del tipo de proyecto y los objetivos de diseño:</p>
+            <p><strong>¿Qué aprendí?</strong> Que Bootstrap es excelente cuando necesito construir interfaces rápidamente con componentes estándar, mientras que Tailwind es mejor cuando requiero diseños completamente personalizados sin restricciones de componentes predefinidos.</p>
+            <p><strong>¿Cómo lo aprendí?</strong> Mediante la implementación práctica de componentes similares con ambos enfoques, lo que me permitió comparar directamente su filosofía de diseño, flexibilidad y curva de aprendizaje.</p>
+            <p><strong>Proceso metacognitivo:</strong> Al encontrarme con problemas de diseño, primero evalué si necesitaba la estructura predefinida de Bootstrap o la libertad de Tailwind. Esto desarrolló mi capacidad de elegir herramientas según las necesidades específicas del proyecto.</p>
+            <p><strong>Aplicación futura:</strong> Mantendré ambos frameworks en mi caja de herramientas, usando Bootstrap para aplicaciones internas y MVP, y Tailwind para proyectos que requieren branding único y diseño personalizado.</p>
+        </section>
+        <section>
+            <h2>Bibliografía</h2>
+            <ul class="bibliography">
+                <li>Bootstrap Documentation. Official Bootstrap 5 Documentation. <a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" target="_blank">https://getbootstrap.com/docs</a></li>
+                <li>Tailwind CSS Documentation. Official Tailwind CSS Documentation. <a href="https://tailwindcss.com/docs/installation" target="_blank">https://tailwindcss.com/docs</a></li>
+                <li>Griffiths, D. (2021). "CSS Frameworks Comparison: Bootstrap vs Tailwind". Frontend Development Journal, 12(3), 45-62.</li>
+                <li>Martínez, J. (2022). "Diseño Web Moderno con Frameworks CSS". Editorial Tecnológica.</li>
+                <li>WebDev Simplified. (2022). "When to Use Bootstrap vs Tailwind". <a href="https://blog.webdevsimplified.com/bootstrap-vs-tailwind" target="_blank">https://blog.webdevsimplified.com</a></li>
+                <li>CSS-Tricks. (2023). "Utility-First CSS Frameworks". <a href="https://css-tricks.com/comparing-tailwind-css-bootstrap" target="_blank">https://css-tricks.com</a></li>
+            </ul>
+        </section>
+        <div class="nav-buttons">
+            <a href="index.html#proyectos" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver a Cuadernos</a>
+            <a href="semana04.html" class="btn btn-primary">Ir a Semana 4 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+    
+</body>
+</html>

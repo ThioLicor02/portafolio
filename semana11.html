@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe de Aprendizaje - Java JSP y Spring Framework</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.7;
+            background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
+            color: #E2E8F0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 32px auto;
+            background: rgba(34,41,70,0.97);
+            padding: 36px 28px;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #764ba2;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 36px 24px;
+            border-radius: 18px 18px 0 0;
+            margin: -36px -28px 30px -28px;
+            box-shadow: 0 8px 32px rgba(34,41,70,0.18);
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(34,41,70,0.3);
+            font-weight: 700;
+        }
+        .header .subtitle {
+            font-size: 1.3em;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 25px;
+            border-left: 4px solid #764ba2;
+            background: rgba(34,41,70,0.8);
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.08);
+        }
+        .section h2 {
+            color: #a7c7e7;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #764ba2;
+        }
+        .section h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin: 20px 0 10px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+        .section h3:before {
+            content: "▶";
+            color: #764ba2;
+            position: absolute;
+            left: 0;
+        }
+        .section h4 {
+            color: #a7c7e7;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+        .definition-box {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(34,41,70,0.08);
+        }
+        .procedure-box {
+            background: linear-gradient(135deg, #55efc4 0%, #00b894 100%);
+            color: #232946;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(34,41,70,0.08);
+        }
+        .exercise-box {
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(34,41,70,0.08);
+        }
+        .reflection-box {
+            background: linear-gradient(135deg, #55a3ff 0%, #003d82 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(34,41,70,0.08);
+        }
+        .code-block {
+            background: #1a1a2e;
+            color: #a7c7e7;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px rgba(34,41,70,0.08);
+            position: relative;
+            border-left: 4px solid #764ba2;
+        }
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .bibliography {
+            background: linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: #232946;
+        }
+        .bibliography h3 {
+            color: #232946;
+            margin-bottom: 15px;
+        }
+        .bibliography a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .bibliography a:hover {
+            text-decoration: underline;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #f39c12 0%, #f1c40f 100%);
+            color: #232946;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 5px solid #e67e22;
+        }
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .tech-item {
+            background: #764ba2;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 900px) {
+            .container { margin: 10px; padding: 12px; }
+            .header h1 { font-size: 2em; }
+            .section { padding: 15px; }
+            .tech-stack { flex-direction: column; gap: 5px; }
+        }
+        /* Botones de navegación */
+        .nav-buttons {
+            margin-top:2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            background: linear-gradient(90deg, #232946 60%, #1a1a2e 100%);
+            color: #a7c7e7;
+            padding: 12px 32px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.2);
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: #1a1a2e;
+            transform: scale(1.05);
+        }
+        .nav-btn.next {
+            background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(118,75,162,0.15);
+        }
+        .nav-btn.next:hover {
+            background: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SEMANA 11</h1>
+            <div class="subtitle">Desarrollo con Java JSP y Spring Framework</div>
+            <div class="subtitle">Semana 11 - Tecnologías Web Empresariales</div>
+        </div>
+        <div class="section">
+            <h2>1. Temas Aprendidos - Definiciones y Conceptos</h2>
+            <h3>Apache Tomcat</h3>
+            <div class="definition-box">
+                <p><strong>Apache Tomcat</strong> es un contenedor de servlets desarrollado bajo el proyecto Jakarta en la Apache Software Foundation. Implementa las especificaciones de los servlets y de JavaServer Pages (JSP) de Oracle Corporation. Tomcat funciona como un servidor web que puede ejecutar aplicaciones Java web dinámicas.</p>
+            </div>
+            <h4>Estructura de Directorios de Tomcat:</h4>
+            <ul>
+                <li><strong>bin:</strong> Ejecutables y scripts para arrancar y parar Tomcat</li>
+                <li><strong>conf:</strong> Archivos de configuración del servidor</li>
+                <li><strong>webapps:</strong> Directorio donde se colocan las aplicaciones web</li>
+                <li><strong>logs:</strong> Directorio de archivos de registro</li>
+                <li><strong>work y temp:</strong> Directorios temporales</li>
+            </ul>
+            <h3>Gestores de Dependencias</h3>
+            <div class="definition-box">
+                <p>Un <strong>gestor de dependencias</strong> es una herramienta que administra automáticamente las bibliotecas y módulos necesarios en un proyecto de software. En Java, los principales gestores son <span class="tech-item">Maven</span> y <span class="tech-item">Gradle</span>.</p>
+            </div>
+            <h4>Apache Maven</h4>
+            <p>Maven es una herramienta de software libre lanzada en 2002 para gestionar proyectos Java. Se basa en archivos XML y sigue la filosofía de estandarización de estructuras de aplicaciones.</p>
+            <div class="tech-stack">
+                <span class="tech-item">Gestión de dependencias</span>
+                <span class="tech-item">Compilación automática</span>
+                <span class="tech-item">Empaquetado JAR/WAR</span>
+                <span class="tech-item">Generación de documentación</span>
+            </div>
+            <h3>JavaServer Pages (JSP)</h3>
+            <div class="definition-box">
+                <p><strong>JSP</strong> es un lenguaje de script del lado del servidor que permite la creación de contenido web dinámico independiente de la plataforma. JSP tiene acceso a toda la familia de APIs de Java, incluyendo JDBC para acceso a bases de datos.</p>
+            </div>
+            <h4>Elementos principales de JSP:</h4>
+            <ul>
+                <li><strong>Scriptlets:</strong> <code>&lt;% código java %&gt;</code></li>
+                <li><strong>Declaraciones:</strong> <code>&lt;%! declaración; %&gt;</code></li>
+                <li><strong>Expresiones:</strong> <code>&lt;%= expresión %&gt;</code></li>
+                <li><strong>Directivas:</strong> <code>&lt;%@ directiva %&gt;</code></li>
+            </ul>
+            <h3>Spring Framework</h3>
+            <div class="definition-box">
+                <p><strong>Spring Framework</strong> es un framework robusto para el desarrollo de aplicaciones empresariales en Java. Fue creado con la finalidad de estandarizar el trabajo, resolver y agilizar los problemas que aparecen en el desarrollo empresarial.</p>
+            </div>
+            <h4>Conceptos Clave:</h4>
+            <ul>
+                <li><strong>Inversión de Control (IoC):</strong> Cambio en el flujo de ejecución donde el framework controla la aplicación</li>
+                <li><strong>Inyección de Dependencias (DI):</strong> Tipo de IoC donde las propiedades se inyectan automáticamente</li>
+                <li><strong>Bean:</strong> Cualquier componente manejado por Spring</li>
+                <li><strong>Spring Container:</strong> Contenedor IoC que gestiona el ciclo de vida de los objetos</li>
+            </ul>
+            <h3>Spring Boot</h3>
+            <div class="definition-box">
+                <p><strong>Spring Boot</strong> es una herramienta que permite crear proyectos con Spring Framework eliminando la complejidad de configuraciones e instalación de dependencias, integrando un servidor de pruebas para despliegue en desarrollo.</p>
+            </div>
+        </div>
+        <div class="section">
+            <h2>2. Procedimientos Aprendidos</h2>
+            <div class="procedure-box">
+                <h3>Configuración del Entorno de Desarrollo</h3>
+                <ol>
+                    <li><strong>Instalación de OpenJDK:</strong>
+                        <ul>
+                            <li>Descargar binarios desde https://openjdk.java.net/</li>
+                            <li>Configurar variables de entorno JAVA_HOME y PATH</li>
+                            <li>Verificar instalación con <code>java --version</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>Instalación de Apache Tomcat:</strong>
+                        <ul>
+                            <li>Descargar desde http://tomcat.apache.org/</li>
+                            <li>Configurar puertos y servicios</li>
+                            <li>Inicializar con start.bat</li>
+                        </ul>
+                    </li>
+                    <li><strong>Configuración de IntelliJ IDEA:</strong>
+                        <ul>
+                            <li>Importar proyecto Maven</li>
+                            <li>Configurar SDK de Java</li>
+                            <li>Configurar servidor Tomcat</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            <div class="procedure-box">
+                <h3>Desarrollo con Spring Boot</h3>
+                <ol>
+                    <li><strong>Creación del proyecto:</strong>
+                        <ul>
+                            <li>Utilizar https://start.spring.io/ para generar estructura</li>
+                            <li>Configurar dependencias (Spring Web, JPA, MySQL)</li>
+                            <li>Descargar y descomprimir proyecto</li>
+                        </ul>
+                    </li>
+                    <li><strong>Configuración de la aplicación:</strong>
+                        <ul>
+                            <li>Configurar application.properties para MySQL</li>
+                            <li>Crear estructura de paquetes (models, controllers, repositories, services)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Implementación del modelo MVC:</strong>
+                        <ul>
+                            <li>Crear entidades con anotaciones JPA</li>
+                            <li>Implementar repositorios con Spring Data</li>
+                            <li>Desarrollar controladores REST</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="section">
+            <h2>3. Ejercicios de Laboratorio Realizados</h2>
+            <div class="exercise-box">
+                <h3>Laboratorio 9: Instalación y Configuración</h3>
+                <h4>Objetivos:</h4>
+                <ul>
+                    <li>Instalación de OpenJDK y configuración de variables de entorno</li>
+                    <li>Instalación y configuración de Apache Tomcat</li>
+                    <li>Configuración de IntelliJ IDEA</li>
+                </ul>
+                <h4>Ejercicios Desarrollados:</h4>
+                <ol>
+                    <li><strong>Aplicación JSP básica:</strong> Mostrar fecha actual</li>
+                    <li><strong>Formulario JSP:</strong> Cálculo de factorial con métodos GET/POST</li>
+                    <li><strong>Sesiones JSP:</strong> Contador de visitas usando objetos implícitos</li>
+                </ol>
+                <div class="code-block">
+&lt;%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Ejemplo JSP&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;¡Hola desde JSP!&lt;/h1&gt;
+    &lt;p&gt;La fecha y hora actual es: &lt;%= new java.util.Date() %&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+            </div>
+            <div class="exercise-box">
+                <h3>Laboratorio 10: Desarrollo de API con Spring</h3>
+                <h4>Objetivos:</h4>
+                <ul>
+                    <li>Creación de proyecto Spring Boot</li>
+                    <li>Implementación del patrón MVC</li>
+                    <li>Desarrollo de API REST para entidad Estudiante</li>
+                    <li>Pruebas con Postman</li>
+                </ul>
+                <h4>Componentes Desarrollados:</h4>
+                <ol>
+                    <li><strong>Modelo Estudiante:</strong> Entidad JPA con atributos básicos</li>
+                    <li><strong>Repositorio:</strong> Interface que extiende JpaRepository</li>
+                    <li><strong>Controlador REST:</strong> Endpoints para operaciones CRUD</li>
+                </ol>
+                <div class="code-block">
+@RestController
+@RequestMapping("/api/estudiantes")
+public class EstudianteController {
+    
+    @Autowired
+    private EstudianteRepository repo;
+    
+    @GetMapping
+    public List<Estudiante> listarTodos() {
+        return repo.findAll();
+    }
+    
+    @PostMapping
+    public Estudiante agregar(@RequestBody Estudiante estudiante) {
+        return repo.save(estudiante);
+    }
+}
+                </div>
+            </div>
+            <div class="exercise-box">
+                <h3>Práctica Calificada: API de Gestión de Docentes</h3>
+                <h4>Funcionalidades Implementadas:</h4>
+                <ul>
+                    <li>CRUD completo para entidad Docente</li>
+                    <li>Búsqueda por ciudad específica</li>
+                    <li>Filtrado por años de experiencia</li>
+                    <li>Cálculo de edad promedio</li>
+                    <li>Paginación en listados</li>
+                    <li>Validaciones con Bean Validation</li>
+                    <li>Documentación con Swagger</li>
+                    <li>Manejo global de excepciones</li>
+                </ul>
+            </div>
+        </div>
+        <div class="section">
+            <h2>4. Resultados Obtenidos</h2>
+            <h3>Competencias Técnicas Adquiridas:</h3>
+            <ul>
+                <li>Configuración completa de entorno de desarrollo Java empresarial</li>
+                <li>Desarrollo de aplicaciones web con JSP y servlets</li>
+                <li>Implementación de APIs REST con Spring Boot</li>
+                <li>Manejo de persistencia de datos con JPA/Hibernate</li>
+                <li>Aplicación de patrones arquitectónicos (MVC, Repository)</li>
+                <li>Gestión de dependencias con Maven</li>
+                <li>Pruebas de APIs con herramientas como Postman</li>
+            </ul>
+            <h3>Habilidades Desarrolladas:</h3>
+            <ul>
+                <li>Análisis y diseño de arquitecturas empresariales</li>
+                <li>Debugging y resolución de problemas de configuración</li>
+                <li>Implementación de validaciones y manejo de errores</li>
+                <li>Documentación técnica de APIs</li>
+                <li>Trabajo con bases de datos relacionales</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>5. Reflexión Final</h2>
+            <div class="reflection-box">
+                <h3>¿Qué Aprendí?</h3>
+                <p>Durante esta unidad de aprendizaje, he adquirido conocimientos profundos sobre el desarrollo de aplicaciones empresariales con Java. El aprendizaje más significativo fue comprender cómo Spring Framework revoluciona el desarrollo Java mediante la inversión de control y la inyección de dependencias, simplificando considerablemente la gestión de objetos y dependencias en aplicaciones complejas.</p>
+                <p>La progresión desde JSP básico hasta APIs REST completas con Spring Boot me permitió entender la evolución de las tecnologías web Java y cómo cada herramienta resuelve problemas específicos del desarrollo empresarial.</p>
+            </div>
+            <div class="reflection-box">
+                <h3>¿Cómo Lo Hice?</h3>
+                <p>Mi proceso de aprendizaje siguió una metodología práctica y progresiva:</p>
+                <ol>
+                    <li><strong>Configuración del entorno:</strong> Comenzé estableciendo un entorno de desarrollo robusto con todas las herramientas necesarias</li>
+                    <li><strong>Práctica incremental:</strong> Desarrollé ejercicios de complejidad creciente, desde JSP básico hasta APIs completas</li>
+                    <li><strong>Experimentación:</strong> Modifiqué códigos de ejemplo para entender el comportamiento de cada componente</li>
+                    <li><strong>Documentación:</strong> Mantuve registros detallados de configuraciones y soluciones a problemas encontrados</li>
+                    <li><strong>Validación:</strong> Probé exhaustivamente cada funcionalidad desarrollada usando herramientas como Postman</li>
+                </ol>
+            </div>
+            <div class="reflection-box">
+                <h3>Reflexión Metacognitiva</h3>
+                <p>Este proceso de aprendizaje me ha enseñado la importancia de la <strong>arquitectura</strong> en el desarrollo de software empresarial. Inicialmente, la cantidad de configuraciones y conceptos nuevos (IoC, DI, anotaciones, etc.) resultaba abrumadora, pero gradualmente comprendí que cada elemento tiene un propósito específico en la construcción de aplicaciones escalables y mantenibles.</p>
+                <p>La experiencia me ha llevado a reflexionar sobre <strong>cómo aprendo tecnologías complejas</strong>: descubrí que necesito combinar teoría con práctica inmediata, y que los errores de configuración, aunque frustrantes inicialmente, son oportunidades valiosas para profundizar en el funcionamiento interno de las herramientas.</p>
+                <p>Un aspecto crucial de mi aprendizaje fue desarrollar <strong>pensamiento sistémico</strong>: entender cómo cada componente (desde la base de datos hasta la presentación) interactúa en un ecosistema más amplio. Esto me ha preparado mejor para abordar problemas complejos de arquitectura de software.</p>
+                <p>Finalmente, este aprendizaje me ha enseñado la importancia de la <strong>documentación y las buenas prácticas</strong>. Spring Boot, con su enfoque de "convención sobre configuración", demuestra cómo las decisiones arquitectónicas bien pensadas pueden simplificar significativamente el desarrollo sin sacrificar funcionalidad.</p>
+            </div>
+        </div>
+        <div class="bibliography">
+            <h3>Bibliografía</h3>
+            <h4>Libros de Referencia:</h4>
+            <ul>
+                <li>Johnson, Rod. <em>Expert One-on-One J2EE Development without EJB</em>. Wrox Press, 2004.</li>
+                <li>Walls, Craig. <em>Spring in Action, 5th Edition</em>. Manning Publications, 2018.</li>
+                <li>DeCarli, Giuliana Zucchi. <em>JavaServer Pages: Guía de Desarrollo Web</em>. McGraw-Hill, 2003.</li>
+                <li>Hunter, Jason. <em>Java Servlet Programming, 2nd Edition</em>. O'Reilly Media, 2001.</li>
+            </ul>
+            <h4>Recursos Web Oficiales:</h4>
+            <ul>
+                <li><a href="https://spring.io/" target="_blank">Spring Framework Official Site</a></li>
+                <li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/" target="_blank">Spring Framework Documentation</a></li>
+                <li><a href="https://spring.io/projects/spring-boot" target="_blank">Spring Boot Documentation</a></li>
+                <li><a href="https://tomcat.apache.org/" target="_blank">Apache Tomcat Official Site</a></li>
+                <li><a href="https://maven.apache.org/" target="_blank">Apache Maven Project</a></li>
+                <li><a href="https://jakarta.ee/" target="_blank">Jakarta EE Platform</a></li>
+                <li><a href="https://jakarta.ee/specifications/pages/3.0/" target="_blank">Jakarta Server Pages Specification</a></li>
+                <li><a href="https://openjdk.java.net/" target="_blank">OpenJDK Official Site</a></li>
+                <li><a href="https://start.spring.io/" target="_blank">Spring Initializr</a></li>
+                <li><a href="https://mvnrepository.com/" target="_blank">Maven Central Repository</a></li>
+            </ul>
+            <h4>Documentación Técnica:</h4>
+            <ul>
+                <li><a href="https://docs.oracle.com/javaee/7/tutorial/servlets.htm" target="_blank">Java EE Tutorial - Servlets</a></li>
+                <li><a href="https://docs.oracle.com/javaee/7/tutorial/jsf-page.htm" target="_blank">Java EE Tutorial - JavaServer Pages</a></li>
+            </ul>
+        </div>
+        <div class="nav-buttons">
+            <a href="index.html#proyectos" class="nav-btn"><i class="fas fa-arrow-left"></i> Volver a Cuadernos</a>
+            <a href="semana12.html" class="nav-btn next">Ir a Semana 12 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</body>
+</html>

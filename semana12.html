@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 12 - Desarrollo Backend Flask Python</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #764ba2;
+            --secondary: #667eea;
+            --accent: #38ef7d;
+            --dark: #232946;
+            --darker: #1a1a2e;
+            --light: #E2E8F0;
+            --success: #48bb78;
+            --warning: #ed8936;
+            --error: #f56565;
+            --info: #4299e1;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            color: var(--light);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            border-radius: 0 0 18px 18px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 8px rgba(34,41,70,0.3);
+        }
+        h2 {
+            font-size: 2rem;
+            color: var(--accent);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        p, ul, ol {
+            margin-bottom: 1rem;
+        }
+        ul, ol {
+            margin-left: 1.5rem;
+        }
+        .card {
+            background: linear-gradient(135deg, var(--darker) 60%, var(--dark) 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.18);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+        .definition {
+            background: rgba(66,153,225,0.12);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--info);
+        }
+        .procedure {
+            background: rgba(72,187,120,0.12);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--success);
+        }
+        .exercise {
+            background: rgba(237,137,54,0.12);
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--warning);
+        }
+        .result {
+            background: rgba(245,101,101,0.12);
+            border-left: 4px solid var(--error);
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--error);
+        }
+        .reflection {
+            background: rgba(118,75,162,0.15);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--accent);
+        }
+        code {
+            background: #232946;
+            color: var(--accent);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+        }
+        pre {
+            background: #1a1a2e;
+            color: var(--light);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 1rem;
+        }
+        .nav-buttons {
+            margin: 2rem 0 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            background: linear-gradient(90deg, var(--dark) 60%, var(--darker) 100%);
+            color: var(--accent);
+            padding: 12px 32px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.2);
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: var(--darker);
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .nav-btn.next {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(118,75,162,0.15);
+        }
+        .nav-btn.next:hover {
+            background: var(--secondary);
+        }
+        a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        a:hover {
+            color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Semana 12 - Desarrollo Backend Flask Python</h1>
+    </header>
+    <div class="container">
+        <section>
+            <h2>Temas Aprendidos</h2>
+            <div class="card">
+                <h3>Flask</h3>
+                <div class="definition">
+                    <p><strong>Definición:</strong> Flask es un microframework de Python para el desarrollo de aplicaciones web. Es ligero, flexible y fácil de extender.</p>
+                </div>
+                <div class="procedure">
+                    <p><strong>Procedimiento:</strong> Para crear una aplicación Flask:</p>
+                    <pre><code>pip install flask
+
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "¡Hola, Flask!"
+
+if __name__ == '__main__':
+    app.run(debug=True)
+</code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Rutas y Vistas</h3>
+                <div class="definition">
+                    <p><strong>Definición:</strong> Las rutas definen los puntos de acceso de la aplicación y las vistas son las funciones que responden a esas rutas.</p>
+                </div>
+                <div class="procedure">
+                    <p><strong>Ejemplo:</strong></p>
+                    <pre><code>@app.route('/saludo')
+def saludo():
+    return "¡Bienvenido a Flask!"</code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Templates y Jinja2</h3>
+                <div class="definition">
+                    <p><strong>Definición:</strong> Flask utiliza Jinja2 como motor de plantillas para separar la lógica de la presentación.</p>
+                </div>
+                <div class="procedure">
+                    <p><strong>Ejemplo:</strong></p>
+                    <pre><code># En views.py
+from flask import render_template
+
+@app.route('/inicio')
+def inicio():
+    return render_template('inicio.html', nombre="Jampiero")</code></pre>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>Ejercicio de Laboratorio</h2>
+            <div class="card exercise">
+                <h3>Objetivo</h3>
+                <p>Crear una aplicación Flask que permita registrar y mostrar estudiantes usando rutas, vistas y plantillas.</p>
+                <h3>Procedimiento</h3>
+                <ol>
+                    <li>Instalar Flask y crear el proyecto</li>
+                    <li>Definir rutas para registrar y mostrar estudiantes</li>
+                    <li>Crear plantillas HTML con Jinja2</li>
+                    <li>Guardar los datos en una lista en memoria</li>
+                </ol>
+                <h3>Ejemplo de Código</h3>
+                <pre><code>estudiantes = []
+
+@app.route('/registrar', methods=['POST'])
+def registrar():
+    nombre = request.form['nombre']
+    estudiantes.append(nombre)
+    return redirect('/mostrar')
+
+@app.route('/mostrar')
+def mostrar():
+    return render_template('mostrar.html', estudiantes=estudiantes)</code></pre>
+            </div>
+        </section>
+        <section>
+            <h2>Resultados</h2>
+            <div class="card result">
+                <h3>Resultados Obtenidos</h3>
+                <ul>
+                    <li>Aplicación funcional con Flask y rutas dinámicas</li>
+                    <li>Uso de plantillas para mostrar datos</li>
+                    <li>Registro y visualización de estudiantes</li>
+                    <li>Comprensión de la arquitectura MVC en Flask</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Reflexión Final</h2>
+            <div class="card reflection">
+                <h3>¿Qué aprendí y cómo lo hice?</h3>
+                <p>Aprendí a crear aplicaciones web con Flask, comprendiendo la importancia de las rutas, vistas y plantillas. Practiqué la arquitectura MVC y la integración de lógica y presentación.</p>
+                <h3>Reflexión metacognitiva</h3>
+                <p>Descubrí que la práctica constante y la experimentación son clave para dominar frameworks backend. Mejoré mi capacidad de estructurar proyectos y separar responsabilidades.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Bibliografía</h2>
+            <div class="card">
+                <h3>Libros y recursos recomendados</h3>
+                <ul>
+                    <li>"Flask Web Development" - Miguel Grinberg <a href="https://flaskbook.com/" target="_blank">(Enlace)</a></li>
+                    <li>Documentación oficial Flask <a href="https://flask.palletsprojects.com/" target="_blank">(Enlace)</a></li>
+                    <li>Python.org <a href="https://www.python.org/" target="_blank">(Enlace)</a></li>
+                    <li>MDN Web Docs <a href="https://developer.mozilla.org/es/docs/Web/Python" target="_blank">(Enlace)</a></li>
+                </ul>
+            </div>
+        </section>
+        <div class="nav-buttons">
+            <a href="index.html#proyectos" class="nav-btn"><i class="fas fa-arrow-left"></i> Volver a Cuadernos</a>
+            <a href="semana13.html" class="nav-btn next">Ir a Semana 13 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p>© 2025 Semana 12 - Desarrollo Backend Flask Python</p>
+        </div>
+    </footer>
+</body>
+</html>

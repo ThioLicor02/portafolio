@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEMANA N° 13 - Desarrollo Backend PHP Laravel</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.7;
+            background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
+            color: #E2E8F0;
+            min-height: 100vh;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 32px auto;
+            background: rgba(34,41,70,0.97);
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            border-radius: 18px 18px 0 0;
+            box-shadow: 0 8px 32px rgba(34,41,70,0.18);
+        }
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 8px rgba(34,41,70,0.3);
+        }
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.08);
+        }
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(34,41,70,0.18);
+        }
+        .section.intro {
+            background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
+        }
+        .section.theory {
+            background: linear-gradient(135deg, #232946 0%, #764ba2 100%);
+        }
+        .section.exercise {
+            background: linear-gradient(135deg, #764ba2 0%, #232946 100%);
+        }
+        .section.results {
+            background: linear-gradient(135deg, #232946 0%, #38ef7d 100%);
+        }
+        .section.reflection {
+            background: linear-gradient(135deg, #667eea 0%, #232946 100%);
+        }
+        .section.bibliography {
+            background: linear-gradient(135deg, #232946 0%, #a8e6cf 100%);
+            color: #232946;
+        }
+        h2 {
+            color: #a7c7e7;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #764ba2;
+            display: flex;
+            align-items: center;
+        }
+        .section.exercise h2,
+        .section.reflection h2 {
+            color: #fff;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+        .icon {
+            margin-right: 15px;
+            font-size: 1.5em;
+        }
+        h3 {
+            color: #38ef7d;
+            font-size: 1.5rem;
+            margin: 25px 0 15px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+        .section.exercise h3,
+        .section.reflection h3 {
+            color: #fff;
+        }
+        h3::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #764ba2;
+            font-weight: bold;
+        }
+        .section.exercise h3::before,
+        .section.reflection h3::before {
+            color: #38ef7d;
+        }
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 1.1rem;
+        }
+        .code-block {
+            background: #1a1a2e;
+            color: #a7c7e7;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-left: 4px solid #764ba2;
+            position: relative;
+        }
+        .code-block::before {
+            content: '</>';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #764ba2;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #38ef7d 0%, #a8e6cf 100%);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #232946;
+        }
+        .definition-box {
+            background: rgba(118,75,162,0.15);
+            border-left: 4px solid #764ba2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+            color: #E2E8F0;
+        }
+        .definition-box::before {
+            content: '💡';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background: #764ba2;
+            border-radius: 50%;
+            padding: 8px;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: rgba(34,41,70,0.7);
+            border-radius: 8px;
+            position: relative;
+            padding-left: 60px;
+            color: #E2E8F0;
+        }
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 15px;
+            background: #764ba2;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .tech-card {
+            background: rgba(34,41,70,0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+            color: #E2E8F0;
+        }
+        .tech-card:hover {
+            transform: scale(1.05);
+            border-color: #764ba2;
+        }
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .bibliography-list {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography-list li {
+            background: rgba(118,75,162,0.15);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #764ba2;
+            color: #232946;
+        }
+        .bibliography-list a {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        .bibliography-list a:hover {
+            color: #38ef7d;
+        }
+        @media (max-width: 900px) {
+            .container { margin: 10px; padding: 12px; }
+            .header h1 { font-size: 2em; }
+            .content { padding: 20px; }
+            .section { padding: 15px; }
+            .tech-grid { grid-template-columns: 1fr; }
+        }
+        /* Botones de navegación */
+        .nav-buttons {
+            margin-top:2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            background: linear-gradient(90deg, #232946 60%, #1a1a2e 100%);
+            color: #a7c7e7;
+            padding: 12px 32px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.2);
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: #1a1a2e;
+            transform: scale(1.05);
+        }
+        .nav-btn.next {
+            background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(118,75,162,0.15);
+        }
+        .nav-btn.next:hover {
+            background: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 SEMANA N° 13</h1>
+            <div class="subtitle">Desarrollo Backend PHP Laravel</div>
+        </div>
+        <div class="content">
+            <!-- Introducción -->
+            <section class="section intro">
+                <h2><span class="icon">🎯</span>Introducción</h2>
+                <p>
+                    El presente informe documenta la experiencia práctica del Laboratorio N° 13, enfocado en el 
+                    <span class="highlight">desarrollo backend con PHP Laravel</span>. Durante esta sesión de 90 minutos, 
+                    se exploró la implementación de aplicaciones web utilizando el framework Laravel, considerado uno 
+                    de los más elegantes y poderosos del ecosistema PHP.
+                </p>
+                <p>
+                    Laravel representa un paradigma moderno en el desarrollo web, proporcionando herramientas sofisticadas 
+                    para la construcción de aplicaciones robustas y escalables. Su arquitectura basada en el patrón 
+                    Modelo-Vista-Controlador (MVC) facilita la organización del código y la separación de responsabilidades.
+                </p>
+            </section>
+            <!-- Temas Aprendidos -->
+            <section class="section theory">
+                <h2><span class="icon">📚</span>Temas Aprendidos - Definiciones y Procedimientos</h2>
+                <h3>Apache HTTP Server</h3>
+                <div class="definition-box">
+                    <p><strong>Definición:</strong> Apache es el servidor web de código abierto más popular mundialmente, 
+                    encargado de entregar contenido web a los usuarios mediante el protocolo HTTP/HTTPS.</p>
+                </div>
+                <p><strong>Procedimiento de instalación:</strong> Se utiliza Apache Lounge para obtener binarios compilados 
+                para Windows, configurando el archivo httpd.conf con parámetros como Listen, ServerName y DocumentRoot.</p>
+                <h3>PHP (PHP: Hypertext Preprocessor)</h3>
+                <div class="definition-box">
+                    <p><strong>Definición:</strong> Lenguaje de programación de código abierto del lado del servidor, 
+                    diseñado específicamente para desarrollo web dinámico.</p>
+                </div>
+                <p><strong>Funcionamiento:</strong> El servidor procesa el código PHP a través de un intérprete, 
+                interactuando con bases de datos y generando HTML, CSS y JavaScript que el navegador puede interpretar.</p>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <span class="tech-icon">🐘</span>
+                        <h4>PHP</h4>
+                        <p>Lenguaje servidor dinámico</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">🎵</span>
+                        <h4>Composer</h4>
+                        <p>Gestor de dependencias</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">⚡</span>
+                        <h4>Laravel</h4>
+                        <p>Framework PHP elegante</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">🗄️</span>
+                        <h4>Eloquent ORM</h4>
+                        <p>Mapeo objeto-relacional</p>
+                    </div>
+                </div>
+                <h3>Laravel Framework</h3>
+                <div class="definition-box">
+                    <p><strong>Definición:</strong> Framework PHP de código abierto que enfatiza la simplicidad, 
+                    elegancia y uso de patrones modernos de desarrollo, basado en el patrón MVC.</p>
+                </div>
+                <p><strong>Componentes principales:</strong></p>
+                <ul>
+                    <li><strong>Rutas (Routes):</strong> Puntos de entrada que asignan URLs a lógica específica</li>
+                    <li><strong>Controladores:</strong> Agrupan lógica de negocio y gestionan peticiones del usuario</li>
+                    <li><strong>Eloquent ORM:</strong> Herramienta para interactuar con bases de datos mediante sintaxis intuitiva</li>
+                    <li><strong>Blade:</strong> Motor de plantillas para separar presentación y lógica</li>
+                    <li><strong>Artisan:</strong> Interfaz de línea de comandos para automatizar tareas</li>
+                    <li><strong>Migrations:</strong> Sistema de versionado de estructura de base de datos</li>
+                </ul>
+            </section>
+            <!-- Ejercicio de Laboratorio -->
+            <section class="section exercise">
+                <h2><span class="icon">🛠️</span>Ejercicio de Laboratorio</h2>
+                <h3>Objetivo del Ejercicio</h3>
+                <p>Crear una aplicación web PHP Laravel para gestión de estudiantes con las siguientes características:</p>
+                <ul>
+                    <li>Sistema de registro de estudiantes</li>
+                    <li>Interfaz de usuario con Tailwind CSS</li>
+                    <li>Conexión a base de datos MySQL</li>
+                    <li>Implementación del patrón MVC</li>
+                </ul>
+                <h3>Procedimiento Implementado</h3>
+                <ol class="step-list">
+                    <li>
+                        <strong>Creación del Proyecto:</strong>
+                        <div class="code-block">laravel new estudiantes-app</div>
+                        Se inicializó un nuevo proyecto Laravel con estructura completa de directorios.
+                    </li>
+                    <li>
+                        <strong>Configuración de Base de Datos:</strong>
+                        <div class="code-block">DB_DATABASE=academico
+DB_USERNAME=root
+DB_PASSWORD=tu_contraseña</div>
+                        Configuración del archivo .env para conexión MySQL.
+                    </li>
+                    <li>
+                        <strong>Creación del Modelo y Migración:</strong>
+                        <div class="code-block">php artisan make:model Estudiante -m</div>
+                        Generación automática del modelo Estudiante con su respectiva migración.
+                    </li>
+                    <li>
+                        <strong>Definición de Esquema:</strong>
+                        <div class="code-block">Schema::create('estudiantes', function (Blueprint $table) {
+    $table->id('idEstudiante');
+    $table->string('nomEstudiante');
+    $table->string('dirEstudiante');
+    $table->string('ciuEstudiante');
+    $table->timestamps();
+});</div>
+                        Estructura de tabla con campos específicos para estudiantes.
+                    </li>
+                    <li>
+                        <strong>Integración de Tailwind CSS:</strong>
+                        <div class="code-block">npm install -D tailwindcss@3 postcss autoprefixer
+npx tailwindcss init -p</div>
+                        Configuración de framework CSS moderno para estilos.
+                    </li>
+                    <li>
+                        <strong>Implementación MVC:</strong>
+                        <ul>
+                            <li><strong>Rutas:</strong> Definición en routes/web.php</li>
+                            <li><strong>Controlador:</strong> EstudianteController con métodos create y store</li>
+                            <li><strong>Vista:</strong> Formulario blade con Tailwind CSS</li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+            <!-- Resultados -->
+            <section class="section results">
+                <h2><span class="icon">📈</span>Resultados Obtenidos</h2>
+                <h3>Funcionalidades Implementadas</h3>
+                <p>La aplicación desarrollada logró integrar exitosamente los siguientes componentes:</p>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <span class="tech-icon">✅</span>
+                        <h4>Formulario Funcional</h4>
+                        <p>Registro de estudiantes con validación</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">🎨</span>
+                        <h4>Interfaz Moderna</h4>
+                        <p>Diseño responsive con Tailwind</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">💾</span>
+                        <h4>Persistencia de Datos</h4>
+                        <p>Almacenamiento en MySQL</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">🏗️</span>
+                        <h4>Arquitectura MVC</h4>
+                        <p>Separación clara de responsabilidades</p>
+                    </div>
+                </div>
+                <h3>Aspectos Técnicos Destacados</h3>
+                <ul>
+                    <li><strong>Eloquent ORM:</strong> Facilitó la interacción con la base de datos mediante sintaxis intuitiva</li>
+                    <li><strong>Blade Templates:</strong> Permitió crear vistas limpias y reutilizables</li>
+                    <li><strong>Artisan Commands:</strong> Automatizaron la generación de código y migraciones</li>
+                    <li><strong>CSRF Protection:</strong> Implementación automática de seguridad en formularios</li>
+                    <li><strong>Mass Assignment:</strong> Configuración de campos fillable en el modelo</li>
+                </ul>
+            </section>
+            <!-- Reflexión -->
+            <section class="section reflection">
+                <h2><span class="icon">🤔</span>Reflexión Final - Aprendizaje y Metodología</h2>
+                <h3>¿Qué Aprendí?</h3>
+                <p>Durante este laboratorio, he adquirido conocimientos fundamentales sobre el desarrollo web moderno 
+                con Laravel. Comprendí la importancia de utilizar frameworks que implementen patrones arquitectónicos 
+                sólidos como MVC, lo que facilita enormemente el mantenimiento y escalabilidad de las aplicaciones.</p>
+                <p>El aspecto más valioso fue entender cómo Laravel abstrae la complejidad del desarrollo web sin 
+                sacrificar la flexibilidad. La integración de Eloquent ORM demostró ser especialmente poderosa, 
+                permitiendo trabajar con bases de datos de manera intuitiva y expresiva.</p>
+                <h3>¿Cómo Lo Hice?</h3>
+                <p>Mi metodología de aprendizaje se basó en un enfoque práctico y sistemático:</p>
+                <ol class="step-list">
+                    <li><strong>Comprensión Conceptual:</strong> Estudié primero los fundamentos teóricos de Laravel y su ecosistema</li>
+                    <li><strong>Implementación Incremental:</strong> Construí la aplicación paso a paso, validando cada componente</li>
+                    <li><strong>Experimentación:</strong> Probé diferentes configuraciones y observé los resultados</li>
+                    <li><strong>Documentación:</strong> Consulté activamente la documentación oficial para entender mejores prácticas</li>
+                </ol>
+                <h3>Reflexión Metacognitiva</h3>
+                <p>Este laboratorio me ha permitido experimentar un cambio paradigmático en mi comprensión del desarrollo web. 
+                Inicialmente, mi enfoque estaba centrado en la implementación técnica inmediata, pero Laravel me ha enseñado 
+                la importancia de la arquitectura y el diseño previo.</p>
+                <p>He reflexionado sobre cómo mi proceso de aprendizaje ha evolucionado: desde una mentalidad de "resolver 
+                problemas individuales" hacia una visión más holística de "construir sistemas coherentes". Laravel no es 
+                solo un conjunto de herramientas, sino una filosofía de desarrollo que enfatiza la elegancia, la legibilidad 
+                y la mantenibilidad del código.</p>
+                <p>La experiencia me ha hecho consciente de la importancia de dominar no solo las sintaxis y comandos, sino 
+                también los principios subyacentes que hacen que un framework sea efectivo. La curva de aprendizaje inicial 
+                fue desafiante, pero la recompensa en términos de productividad y calidad de código es evidente.</p>
+                <p>Esta experiencia refuerza mi convicción de que el aprendizaje efectivo en tecnología requiere un equilibrio 
+                entre la comprensión teórica profunda y la práctica experimental constante.</p>
+            </section>
+            <!-- Bibliografía -->
+            <section class="section bibliography">
+                <h2><span class="icon">📖</span>Bibliografía</h2>
+                <h3>Libros Especializados</h3>
+                <ul class="bibliography-list">
+                    <li>
+                        <strong>Stauffer, M. (2019).</strong> <em>Laravel: Up & Running - A Framework for Building Modern PHP Apps</em>. 
+                        2nd Edition. O'Reilly Media. ISBN: 978-1492041221
+                    </li>
+                    <li>
+                        <strong>Lockhart, J. (2015).</strong> <em>Modern PHP: New Features and Good Practices</em>. 
+                        O'Reilly Media. ISBN: 978-1491905012
+                    </li>
+                    <li>
+                        <strong>Otwell, T. & Community. (2024).</strong> <em>Laravel Framework Documentation</em>. 
+                        Version 12.x. Laravel LLC.
+                    </li>
+                    <li>
+                        <strong>Skvorc, B. (2017).</strong> <em>Jump Start PHP Environment</em>. 
+                        SitePoint Pty. Ltd. ISBN: 978-0994182681
+                    </li>
+                </ul>
+                <h3>Recursos Web Oficiales</h3>
+                <ul class="bibliography-list">
+                    <li>
+                        <strong>Laravel Framework:</strong> 
+                        <a href="https://laravel.com/" target="_blank">https://laravel.com/</a>
+                        <br><em>Sitio web oficial del framework Laravel con documentación completa</em>
+                    </li>
+                    <li>
+                        <strong>Laravel Documentation:</strong> 
+                        <a href="https://laravel.com/docs/12.x" target="_blank">https://laravel.com/docs/12.x</a>
+                        <br><em>Documentación técnica oficial de Laravel versión 12.x</em>
+                    </li>
+                    <li>
+                        <strong>PHP Official Documentation:</strong> 
+                        <a href="https://www.php.net/manual/en/" target="_blank">https://www.php.net/manual/en/</a>
+                        <br><em>Manual oficial de PHP con referencia completa del lenguaje</em>
+                    </li>
+                    <li>
+                        <strong>Composer - Dependency Manager:</strong> 
+                        <a href="https://getcomposer.org/" target="_blank">https://getcomposer.org/</a>
+                        <br><em>Sitio oficial de Composer, gestor de dependencias para PHP</em>
+                    </li>
+                    <li>
+                        <strong>Apache HTTP Server Project:</strong> 
+                        <a href="https://httpd.apache.org/docs/" target="_blank">https://httpd.apache.org/docs/</a>
+                        <br><em>Documentación oficial del servidor Apache HTTP</em>
+                    </li>
+                    <li>
+                        <strong>Apache Lounge:</strong> 
+                        <a href="https://www.apachelounge.com/" target="_blank">https://www.apachelounge.com/</a>
+                        <br><em>Distribución de binarios Apache para Windows</em>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <div class="nav-buttons">
+            <a href="index.html#proyectos" class="nav-btn"><i class="fas fa-arrow-left"></i> Volver a Cuadernos</a>
+            <a href="semana14.html" class="nav-btn next">Ir a Semana 14 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</body>
+</html>

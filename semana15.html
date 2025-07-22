@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEMANA N° 15 - Integración Fullstack: API REST y Frontend SPA</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.7;
+            background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
+            color: #E2E8F0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 32px auto;
+            background: rgba(34,41,70,0.97);
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            border-radius: 18px 18px 0 0;
+            box-shadow: 0 8px 32px rgba(34,41,70,0.18);
+        }
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 8px rgba(34,41,70,0.3);
+        }
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.08);
+        }
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(34,41,70,0.18);
+        }
+        .section.intro {
+            background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
+        }
+        .section.theory {
+            background: linear-gradient(135deg, #232946 0%, #764ba2 100%);
+        }
+        .section.exercise {
+            background: linear-gradient(135deg, #764ba2 0%, #232946 100%);
+        }
+        .section.results {
+            background: linear-gradient(135deg, #232946 0%, #38ef7d 100%);
+        }
+        .section.reflection {
+            background: linear-gradient(135deg, #667eea 0%, #232946 100%);
+        }
+        .section.bibliography {
+            background: linear-gradient(135deg, #232946 0%, #a8e6cf 100%);
+            color: #232946;
+        }
+        h2 {
+            color: #a7c7e7;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #764ba2;
+            display: flex;
+            align-items: center;
+        }
+        .section.exercise h2,
+        .section.reflection h2 {
+            color: #fff;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+        .icon {
+            margin-right: 15px;
+            font-size: 1.5em;
+        }
+        h3 {
+            color: #38ef7d;
+            font-size: 1.5rem;
+            margin: 25px 0 15px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+        .section.exercise h3,
+        .section.reflection h3 {
+            color: #fff;
+        }
+        h3::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #764ba2;
+            font-weight: bold;
+        }
+        .section.exercise h3::before,
+        .section.reflection h3::before {
+            color: #38ef7d;
+        }
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 1.1rem;
+        }
+        .code-block {
+            background: #1a1a2e;
+            color: #a7c7e7;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-left: 4px solid #764ba2;
+            position: relative;
+        }
+        .code-block::before {
+            content: '</>';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #764ba2;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #38ef7d 0%, #a8e6cf 100%);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #232946;
+        }
+        .definition-box {
+            background: rgba(118,75,162,0.15);
+            border-left: 4px solid #764ba2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+            color: #E2E8F0;
+        }
+        .definition-box::before {
+            content: '💡';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background: #764ba2;
+            border-radius: 50%;
+            padding: 8px;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: rgba(34,41,70,0.7);
+            border-radius: 8px;
+            position: relative;
+            padding-left: 60px;
+            color: #E2E8F0;
+        }
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 15px;
+            background: #764ba2;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .tech-card {
+            background: rgba(34,41,70,0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+            color: #E2E8F0;
+        }
+        .tech-card:hover {
+            transform: scale(1.05);
+            border-color: #764ba2;
+        }
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .bibliography-list {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography-list li {
+            background: rgba(118,75,162,0.15);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #764ba2;
+            color: #232946;
+        }
+        .bibliography-list a {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        .bibliography-list a:hover {
+            color: #38ef7d;
+        }
+        @media (max-width: 900px) {
+            .container { margin: 10px; padding: 12px; }
+            .header h1 { font-size: 2em; }
+            .content { padding: 20px; }
+            .section { padding: 15px; }
+            .tech-grid { grid-template-columns: 1fr; }
+        }
+        /* Botones de navegación */
+        .nav-buttons {
+            margin-top:2rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            background: linear-gradient(90deg, #232946 60%, #1a1a2e 100%);
+            color: #a7c7e7;
+            padding: 12px 32px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.2);
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: #1a1a2e;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 SEMANA N° 15</h1>
+            <div class="subtitle">Integración Fullstack: API REST y Frontend SPA</div>
+        </div>
+        <div class="content">
+            <!-- Introducción -->
+            <section class="section intro">
+                <h2><span class="icon">🎯</span>Introducción</h2>
+                <p>
+                    Este informe documenta la experiencia práctica del Laboratorio N° 15, centrado en la <span class="highlight">integración fullstack</span> de una API REST desarrollada en backend con Laravel y un frontend SPA construido con Vue.js y Tailwind CSS.
+                </p>
+                <p>
+                    El objetivo principal fue comprender cómo conectar ambos mundos y lograr una comunicación eficiente entre el cliente y el servidor, aplicando buenas prácticas de arquitectura y diseño.
+                </p>
+            </section>
+            <!-- Temas Aprendidos -->
+            <section class="section theory">
+                <h2><span class="icon">📚</span>Temas Aprendidos - Definiciones y Procedimientos</h2>
+                <h3>API REST</h3>
+                <div class="definition-box">
+                    <p><strong>Definición:</strong> Interfaz de comunicación basada en HTTP que permite el intercambio de datos entre sistemas de manera estructurada y segura, utilizando los métodos GET, POST, PUT y DELETE.</p>
+                </div>
+                <h3>Frontend SPA</h3>
+                <div class="definition-box">
+                    <p><strong>Definición:</strong> Aplicación de una sola página que gestiona la navegación y el estado en el cliente, permitiendo una experiencia fluida y dinámica sin recarga completa.</p>
+                </div>
+                <h3>Integración Fullstack</h3>
+                <div class="definition-box">
+                    <p>La integración fullstack implica conectar el backend (API REST) con el frontend (SPA) mediante peticiones HTTP, manejo de autenticación, validación y visualización de datos.</p>
+                </div>
+            </section>
+            <!-- Ejercicio de Laboratorio -->
+            <section class="section exercise">
+                <h2><span class="icon">🛠️</span>Ejercicio de Laboratorio</h2>
+                <h3>Objetivo del Ejercicio</h3>
+                <p>Desarrollar una aplicación de gestión de estudiantes con las siguientes características:</p>
+                <ul>
+                    <li>API REST en Laravel para CRUD de estudiantes</li>
+                    <li>Frontend SPA en Vue.js con Tailwind CSS</li>
+                    <li>Comunicación mediante Axios</li>
+                    <li>Validación y feedback visual</li>
+                </ul>
+                <h3>Procedimiento Implementado</h3>
+                <ol class="step-list">
+                    <li>
+                        <strong>Backend Laravel:</strong>
+                        <div class="code-block">php artisan make:model Estudiante -mcr</div>
+                        <div class="code-block">php artisan migrate</div>
+                        <div class="code-block">php artisan make:controller Api/EstudianteController --api</div>
+                        <div class="code-block">// routes/api.php
+Route::apiResource('estudiantes', EstudianteController::class);</div>
+                    </li>
+                    <li>
+                        <strong>Frontend Vue.js:</strong>
+                        <div class="code-block">npm create vite@latest estudiantes-spa -- --template vue</div>
+                        <div class="code-block">npm install axios tailwindcss postcss autoprefixer</div>
+                        <ul>
+                            <li>Creación de componentes para listado y formulario</li>
+                            <li>Estilización con clases utilitarias de Tailwind</li>
+                            <li>Consumo de API con Axios</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Validación y Feedback:</strong>
+                        <ul>
+                            <li>Validación de campos obligatorios en frontend y backend</li>
+                            <li>Mensajes de error y éxito estilizados</li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+            <!-- Resultados -->
+            <section class="section results">
+                <h2><span class="icon">📈</span>Resultados Obtenidos</h2>
+                <h3>Funcionalidades Implementadas</h3>
+                <p>La aplicación desarrollada logró integrar exitosamente los siguientes componentes:</p>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <span class="tech-icon">✅</span>
+                        <h4>API REST</h4>
+                        <p>CRUD completo de estudiantes</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">🎨</span>
+                        <h4>SPA Frontend</h4>
+                        <p>Interfaz moderna y responsiva</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">🔗</span>
+                        <h4>Integración Axios</h4>
+                        <p>Comunicación eficiente cliente-servidor</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-icon">⚡</span>
+                        <h4>Feedback Visual</h4>
+                        <p>Validaciones y mensajes estilizados</p>
+                    </div>
+                </div>
+                <h3>Aspectos Técnicos Destacados</h3>
+                <ul>
+                    <li><strong>Laravel:</strong> Generación rápida de API REST</li>
+                    <li><strong>Vue.js:</strong> Componentes reactivos y SPA</li>
+                    <li><strong>Tailwind CSS:</strong> Estilos modernos y responsivos</li>
+                    <li><strong>Axios:</strong> Consumo eficiente de API</li>
+                </ul>
+            </section>
+            <!-- Reflexión -->
+            <section class="section reflection">
+                <h2><span class="icon">🤔</span>Reflexión Final - Aprendizaje y Metodología</h2>
+                <h3>¿Qué Aprendí?</h3>
+                <p>Durante este laboratorio, aprendí a integrar backend y frontend de manera eficiente, comprendiendo la importancia de la comunicación entre ambos y la validación en cada capa.</p>
+                <h3>¿Cómo Lo Hice?</h3>
+                <p>Mi metodología se basó en:</p>
+                <ol class="step-list">
+                    <li><strong>Estudio Teórico:</strong> Revisé documentación oficial y ejemplos</li>
+                    <li><strong>Implementación Práctica:</strong> Construí la API y el SPA paso a paso</li>
+                    <li><strong>Experimentación:</strong> Probé diferentes configuraciones y estilos</li>
+                    <li><strong>Validación:</strong> Verifiqué la funcionalidad y responsividad en distintos dispositivos</li>
+                </ol>
+                <h3>Reflexión Metacognitiva</h3>
+                <p>La experiencia me permitió reflexionar sobre la importancia de la <strong>integración</strong> y la <strong>modularidad</strong> en proyectos fullstack. Aprendí que la comunicación eficiente y el diseño visual son claves para el éxito de una aplicación web moderna.</p>
+            </section>
+            <!-- Bibliografía -->
+            <section class="section bibliography">
+                <h2><span class="icon">📖</span>Bibliografía</h2>
+                <h3>Libros Especializados</h3>
+                <ul class="bibliography-list">
+                    <li>
+                        <strong>Stauffer, M. (2019).</strong> <em>Laravel: Up & Running</em>. O'Reilly Media.
+                    </li>
+                    <li>
+                        <strong>Holmes, A. (2021).</strong> <em>Tailwind CSS: From Zero to Production</em>. Leanpub.
+                    </li>
+                    <li>
+                        <strong>Rubio, A. (2022).</strong> <em>Vue.js 3 By Example</em>. Packt Publishing.
+                    </li>
+                </ul>
+                <h3>Recursos Web Oficiales</h3>
+                <ul class="bibliography-list">
+                    <li>
+                        <strong>Laravel:</strong> 
+                        <a href="https://laravel.com/" target="_blank">https://laravel.com/</a>
+                    </li>
+                    <li>
+                        <strong>Tailwind CSS:</strong> 
+                        <a href="https://tailwindcss.com/" target="_blank">https://tailwindcss.com/</a>
+                    </li>
+                    <li>
+                        <strong>Vue.js:</strong> 
+                        <a href="https://vuejs.org/" target="_blank">https://vuejs.org/</a>
+                    </li>
+                    <li>
+                        <strong>Axios:</strong> 
+                        <a href="https://axios-http.com/" target="_blank">https://axios-http.com/</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <div class="nav-buttons">
+            <a href="index.html#proyectos" class="nav-btn"><i class="fas fa-arrow-left"></i> Volver a Proyectos</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript, TypeScript y Manipulación del DOM</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #764ba2;
+            --secondary: #667eea;
+            --accent: #38ef7d;
+            --dark: #232946;
+            --darker: #1a1a2e;
+            --light: #E2E8F0;
+            --success: #48bb78;
+            --warning: #ed8936;
+            --error: #f56565;
+            --info: #4299e1;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            color: var(--light);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            border-radius: 0 0 18px 18px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 8px rgba(34,41,70,0.3);
+        }
+        h2 {
+            font-size: 2rem;
+            color: var(--accent);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        p, ul, ol {
+            margin-bottom: 1rem;
+        }
+        ul, ol {
+            margin-left: 1.5rem;
+        }
+        .card {
+            background: linear-gradient(135deg, var(--darker) 60%, var(--dark) 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.18);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+        .definition {
+            background: rgba(66,153,225,0.12);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--info);
+        }
+        .procedure {
+            background: rgba(72,187,120,0.12);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--success);
+        }
+        .exercise {
+            background: rgba(237,137,54,0.12);
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--warning);
+        }
+        .result {
+            background: rgba(245,101,101,0.12);
+            border-left: 4px solid var(--error);
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--error);
+        }
+        .reflection {
+            background: rgba(118,75,162,0.15);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--accent);
+        }
+        code {
+            background: #232946;
+            color: var(--accent);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+        }
+        pre {
+            background: #1a1a2e;
+            color: var(--light);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 1rem;
+        }
+        .interactive {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px dashed var(--accent);
+            background: rgba(56,239,125,0.08);
+        }
+        button {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.18);
+            cursor: pointer;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            transition: background 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+        .exercise-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #232946;
+            border-radius: 4px;
+            color: var(--accent);
+            display: none;
+        }
+        footer {
+            background: var(--darker);
+            color: var(--light);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-radius: 18px 18px 0 0;
+        }
+        a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        a:hover {
+            color: var(--primary);
+        }
+        .nav-buttons {
+            margin: 2rem 0 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-btn {
+            background: linear-gradient(90deg, var(--dark) 60%, var(--darker) 100%);
+            color: var(--accent);
+            padding: 12px 32px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(34,41,70,0.2);
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: var(--darker);
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .nav-btn.next {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(118,75,162,0.15);
+        }
+        .nav-btn.next:hover {
+            background: var(--secondary);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>JavaScript, TypeScript y Manipulación del DOM</h1>
+    </header>
+    <div class="container">
+        <section class="topic-section">
+            <h2>Temas Aprendidos</h2>
+            <div class="card">
+                <h3>JavaScript</h3>
+                <div class="definition">
+                    <p><strong>Definición:</strong> JavaScript es un lenguaje de programación interpretado, orientado a objetos, utilizado principalmente en el desarrollo web para añadir interactividad a las páginas.</p>
+                </div>
+                <div class="procedure">
+                    <p><strong>Procedimiento:</strong> Para usar JavaScript en una página web, podemos incluirlo directamente con la etiqueta &lt;script&gt; o enlazar a un archivo externo.</p>
+                    <pre><code>&lt;script&gt;
+    // Código JavaScript aquí
+&lt;/script&gt;
+// O
+&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <h3>TypeScript</h3>
+                <div class="definition">
+                    <p><strong>Definición:</strong> TypeScript es un superset de JavaScript que añade tipado estático y otras características como interfaces y clases avanzadas.</p>
+                </div>
+                <div class="procedure">
+                    <p><strong>Procedimiento:</strong> TypeScript debe compilarse a JavaScript para ejecutarse en el navegador.</p>
+                    <pre><code>// Instalación
+npm install -g typescript
+
+// Compilación
+tsc archivo.ts</code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Manipulación del DOM</h3>
+                <div class="definition">
+                    <p><strong>Definición:</strong> El DOM (Document Object Model) es una representación en objetos del documento HTML que permite interactuar con los elementos de la página.</p>
+                </div>
+                <div class="procedure">
+                    <p><strong>Procedimiento:</strong> Se puede acceder y modificar elementos usando métodos como:</p>
+                    <pre><code>// Selección
+const elemento = document.getElementById('id');
+const elementos = document.querySelectorAll('.clase');
+
+// Modificación
+elemento.textContent = 'Nuevo texto';
+elemento.classList.add('nueva-clase');
+elemento.style.color = 'red';
+
+// Creación
+const nuevoElemento = document.createElement('div');
+document.body.appendChild(nuevoElemento);
+
+// Eventos
+elemento.addEventListener('click', () => {
+    alert('Elemento clickeado!');
+});</code></pre>
+                </div>
+            </div>
+        </section>
+        <section class="topic-section">
+            <h2>Ejercicios de Laboratorio</h2>
+            <div class="card interactive">
+                <h3>Interactividad con JavaScript</h3>
+                <p>Ejemplo práctico de manipulación del DOM:</p>
+                <button id="changeText">Cambiar Texto</button>
+                <button id="addElement">Añadir Elemento</button>
+                <button id="removeElement">Eliminar Elemento</button>
+                <div id="resultContainer">
+                    <p id="textToChange">Este texto cambiará cuando hagas click en el botón.</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>TypeScript en Acción</h3>
+                <div class="exercise">
+                    <p>Crea una interfaz en TypeScript para representar un usuario:</p>
+                    <pre><code>interface Usuario {
+    id: number;
+    nombre: string;
+    email: string;
+    edad?: number; // Propiedad opcional
+}
+
+function mostrarUsuario(usuario: Usuario): void {
+    console.log(`Nombre: ${usuario.nombre}, Email: ${usuario.email}`);
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        <section class="topic-section">
+            <h2>Resultados</h2>
+            <div class="card">
+                <h3>Resultados de los ejercicios</h3>
+                <div class="result">
+                    <p>Al completar los ejercicios prácticos, podemos observar:</p>
+                    <ul>
+                        <li>Cómo JavaScript permite modificar dinámicamente el contenido de la página</li>
+                        <li>La ventaja de TypeScript al proporcionar seguridad de tipos</li>
+                        <li>La potencia de la manipulación del DOM para crear experiencias interactivas</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="topic-section">
+            <h2>Reflexión Final</h2>
+            <div class="card">
+                <div class="reflection">
+                    <h3>¿Qué aprendí y cómo lo hice?</h3>
+                    <p>Durante este estudio, comprendí profundamente cómo JavaScript funciona como el lenguaje fundamental para la interactividad web. Aprendí mediante:</p>
+                    <ul>
+                        <li>Experimentación práctica con código</li>
+                        <li>Comparación de JavaScript con TypeScript</li>
+                        <li>Manipulación directa del DOM para ver resultados inmediatos</li>
+                    </ul>
+                    <h3>Reflexión metacognitiva</h3>
+                    <p>Este proceso me permitió darme cuenta de que aprendo mejor cuando:</p>
+                    <ul>
+                        <li>Tengo objetivos claros y alcanzables</li>
+                        <li>Puedo experimentar inmediatamente con los conceptos aprendidos</li>
+                        <li>Existe un equilibrio entre teoría y práctica</li>
+                    </ul>
+                    <p>Identifiqué que necesito mejorar en:</p>
+                    <ul>
+                        <li>Trabajar sistemáticamente para evitar errores comunes</li>
+                        <li>Documentar mejor mi proceso de aprendizaje</li>
+                        <li>Practicar más con tipos avanzados de TypeScript</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="topic-section">
+            <h2>Bibliografía</h2>
+            <div class="card">
+                <h3>Libros y recursos recomendados</h3>
+                <ul>
+                    <li>"Eloquent JavaScript" - Marijn Haverbeke <a href="https://eloquentjavascript.net/" target="_blank">(Enlace)</a></li>
+                    <li>"TypeScript Handbook" - Documentación oficial de TypeScript <a href="https://www.typescriptlang.org/docs/" target="_blank">(Enlace)</a></li>
+                    <li>"JavaScript: The Definitive Guide" - David Flanagan</li>
+                    <li>"You Don't Know JS" - Kyle Simpson <a href="https://github.com/getify/You-Dont-Know-JS" target="_blank">(Enlace)</a></li>
+                    <li>MDN Web Docs <a href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank">(Enlace)</a></li>
+                </ul>
+            </div>
+        </section>
+        <div class="nav-buttons">
+            <a href="index.html#proyectos" class="nav-btn"><i class="fas fa-arrow-left"></i> Volver a Cuadernos</a>
+            <a href="semana05.html" class="nav-btn next">Ir a Semana 5 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+        <script>
+        // Ejemplo práctico de manipulación del DOM
+        document.getElementById('changeText').addEventListener('click', function() {
+            const element = document.getElementById('textToChange');
+            element.textContent = '¡El texto ha sido cambiado con JavaScript!';
+            element.style.color = '#38ef7d';
+        });
+        document.getElementById('addElement').addEventListener('click', function() {
+            const newElement = document.createElement('p');
+            newElement.textContent = 'Nuevo elemento añadido dinámicamente';
+            newElement.style.color = '#667eea';
+            document.getElementById('resultContainer').appendChild(newElement);
+        });
+        document.getElementById('removeElement').addEventListener('click', function() {
+            const container = document.getElementById('resultContainer');
+            if (container.children.length > 1) {
+                container.removeChild(container.lastChild);
+            }
+        });
+    </script>
+</body>
+</html>

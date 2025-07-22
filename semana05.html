@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Aprendizaje: React.js y Herramientas de Desarrollo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #2980b9;
+            border-bottom: 3px solid #2980b9;
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 1.8em;
+            color: #34495e;
+        }
+        h3 {
+            font-size: 1.4em;
+            color: #555;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        b {
+            color: #2c3e50;
+        }
+        .highlight {
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-left: 5px solid #3498db;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .reflection {
+            background-color: #e8f6f3;
+            border-left: 5px solid #1abc9c;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+        .bibliography ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .bibliography li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reporte de Aprendizaje: React.js y Herramientas de Desarrollo</h1>
+
+        <section>
+            <h2>Temas Aprendidos: Definiciones y Procedimientos</h2>
+
+            <h3>1. Introducción a React.js</h3>
+            <ul>
+                <li><b>Definición:</b> React es una librería de código de JavaScript para crear interfaces de usuario. Se utiliza para desarrollar Single Page Applications (SPA) y permite la creación de componentes de interfaz de usuario reutilizables.</li>
+                <li><b>Origen:</b> Creado por Jordan Walke, ingeniero de software de Facebook. Fue utilizado por primera vez en 2011 para la función Newsfeed de Facebook.</li>
+                <li><b>Versiones:</b> La versión actual de React.JS es V18.0.0 (abril de 2022). La versión actual de create-react-app es v5.0.1 (abril de 2022).</li>
+            </ul>
+
+            <h3>2. Entorno de Desarrollo para React.js</h3>
+            <p>Para un desarrollo eficiente en React.js, es fundamental un entorno bien configurado, que incluye:</p>
+            <ul>
+                <li><b>Inicialización del proyecto:</b> Configuración de dependencias y estructura (ej. Vite, Create React App).</li>
+                <li><b>Compilación:</b> Conversión del código fuente a una versión optimizada y ejecutable (ej. Webpack, Turbopack).</li>
+                <li><b>Transpilación:</b> Transformación de código JavaScript moderno (ES6+) y JSX a versiones compatibles con navegadores (ej. Babel).</li>
+                <li><b>Gestión y automatización de tareas:</b> Análisis de código estático (ESLint), formateo (Prettier), extensiones y snippets.</li>
+                <li><b>Sistema de Control de Versiones:</b> Git, Husky.</li>
+            </ul>
+
+            <h3>3. Herramientas Clave del Ecosistema React</h3>
+
+            <h4>3.1. Webpack</h4>
+            <ul>
+                <li><b>Definición:</b> Herramienta que convierte las dependencias de una aplicación web en archivos que el navegador pueda entender de manera más rápida e interoperable. Ayuda a transpilar archivos CSS, preprocesadores (Sass, Less), TypeScript, etc., para que el navegador los interprete.</li>
+                <li><b>Propósito:</b> Facilita el trabajo con archivos separados y un diseño arquitectónico modular, optimizando la carga de la aplicación.</li>
+            </ul>
+
+            <h4>3.2. Babel JS / SWC (Speedy Web Compiler)</h4>
+            <ul>
+                <li><b>Definición:</b> Herramienta que transforma código JavaScript de última generación (ES6+, JSX, TypeScript) a una versión compatible con cualquier navegador o versión de Node.js.</li>
+                <li><b>Procedimiento (Demostración):</b>
+                    <ol>
+                        <li>Abrir el Link Demostración: <a href="https://babel.io/repl" target="_blank">https://babel.io/repl</a></li>
+                        <li>Agregar código moderno (ej. con TypeScript o ES6+):
+                            <div class="code-block">
+                                <pre><code>let nombre: string = `Jaime Suasnabar`;
+let estatura: number = 1.72;
+let sentence: string = `Hola, mi nombre es ${ nombre }. Mi estatura es ${ estatura } metros.`;</code></pre>
+                            </div>
+                        </li>
+                        <li>Observar cómo Babel lo transpila a código JavaScript compatible.</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h4>3.3. ESLint</h4>
+            <ul>
+                <li><b>Definición:</b> Herramienta de software que revisa y "observa" el código en busca de errores que puedan afectarlo. Puede ofrecer sugerencias o incluso corregir errores automáticamente.</li>
+                <li><b>Propósito:</b> Mantener la calidad del código, asegurar buenas prácticas y prevenir errores comunes.</li>
+                <li><b>Procedimiento (Demostración):</b>
+                    <ol>
+                        <li>Abrir el Link Demostración: <a href="https://eslint.org/demo" target="_blank">https://eslint.org/demo</a></li>
+                        <li>Agregar código con posibles errores o malas prácticas:
+                            <div class="code-block">
+                                <pre><code>var v = confirm("¿Quieres enviarlo?");
+if (v) {
+    document.write("Ok, gracias.");
+} else {
+    document.write("Estaremos aquí para cuando te decidas ;)");
+}</code></pre>
+                            </div>
+                        </li>
+                        <li>Observar las advertencias o errores que ESLint detecta.</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h4>3.4. Sass / Scss</h4>
+            <ul>
+                <li><b>Definición:</b> SASS (Syntactically Awesome Stylesheets) es un metalenguaje de hojas de estilo (pre-procesador) que se traduce a CSS. SCSS es una sintaxis de SASS que es más similar a CSS, pero con todas las ventajas de SASS (variables, anidamiento, mixins, etc.).</li>
+                <li><b>Propósito:</b> Mejorar la organización y eficiencia en la escritura de CSS.</li>
+                <li><b>Procedimiento (Demostración):</b>
+                    <ol>
+                        <li>Abrir el Link: <a href="https://beautifytools.com/scss-compiler.php" target="_blank">https://beautifytools.com/scss-compiler.php</a></li>
+                        <li>Agregar código SCSS:
+                            <div class="code-block">
+                                <pre><code>$primary-color: #333;
+.navbar {
+    background-color: $primary-color;
+}
+.footer {
+    border: 1px solid $primary-color;
+}</code></pre>
+                            </div>
+                        </li>
+                        <li>Observar cómo se compila a CSS puro.</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>4. Herramientas de Instalación Automatizada (para evitar la "Fatiga de JavaScript")</h3>
+            <p>Para optimizar la configuración de herramientas como Babel, Webpack, ESLint en proyectos de mediana escala, se recomienda el uso de herramientas de instalación automatizada:</p>
+            <ul>
+                <li><b>Create React App:</b> Configura un ambiente de desarrollo para usar las últimas características de JavaScript, optimizando la aplicación para producción. Requiere Node >= 14.0.0 y npm >= 5.6.</li>
+                <li><b>Vite:</b> Herramienta de frontend agnóstica que ayuda a crear proyectos de forma sencilla y cómoda, sin atarse a un framework concreto. Desarrollada por Evan You (creador de Vue).</li>
+                <li><b>Next.js:</b> Framework construido sobre React.js que reduce la "fatiga de JavaScript" al configurar automáticamente Babel, Webpack, server render, HMR, y facilitar el deploy.</li>
+                <li>Otras herramientas mencionadas: GatsbyJS, BlitzJS, Remix Run, Hydrogen.</li>
+            </ul>
+
+            <h3>5. Uso de CDN para React</h3>
+            <ul>
+                <li><b>Concepto:</b> Para usar React, se necesitan las librerías React y ReactDOM. Estas pueden ser incluidas directamente en HTML a través de un CDN (Content Delivery Network).</li>
+                <li><b>Procedimiento (Versión 17):</b>
+                    <ol>
+                        <li>Incluir tres scripts:
+                            <ul>
+                                <li>React (para escribir código React en JavaScripts).</li>
+                                <li>ReactDOM (para escribir código React en JavaScripts).</li>
+                                <li>Babel (para escribir sintaxis JSX y ES6 en navegadores antiguos).</li>
+                            </ul>
+                            <div class="code-block">
+                                <pre><code>&lt;script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"&gt;&lt;/script&gt;
+&lt;script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"&gt;&lt;/script&gt;
+&lt;script src="https://unpkg.com/@babel/standalone/babel.min.js"&gt;&lt;/script&gt;</code></pre>
+                            </div>
+                        </li>
+                        <li>Agregar la etiqueta `&lt;div id="mydiv"&gt;&lt;/div&gt;`.</li>
+                        <li>Agregar la etiqueta `&lt;script type="text/babel"&gt;…&lt;/script&gt;` para el código React.</li>
+                        <li>Probar la página.</li>
+                    </ol>
+                </li>
+                <li><b>CDN Versión 18:</b>
+                    <div class="code-block">
+                        <pre><code>&lt;script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"&gt;&lt;/script&gt;
+&lt;script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"&gt;&lt;/script&gt;</code></pre>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>6. Directorio `node_modules`</h3>
+            <ul>
+                <li><b>Definición:</b> Directorio esencial en proyectos que usan Node.js y npm.</li>
+                <li><b>Propósito:</b> Almacenar todas las dependencias y paquetes instalados mediante `npm install`.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Resultados y Reflexión Final</h2>
+
+            <h3>¿Qué aprendí y cómo lo hice?</h3>
+            <div class="reflection">
+                <p>A lo largo de este módulo, he adquirido una comprensión sólida de los fundamentos de React.js y, lo que es igualmente importante, del ecosistema de herramientas que lo rodea y que son cruciales para el desarrollo moderno de aplicaciones web. Aprendí que React no es solo una librería para construir interfaces de usuario, sino que su eficiencia y escalabilidad dependen en gran medida de la integración con otras herramientas como Webpack para la compilación, Babel para la transpilación y ESLint para el aseguramiento de la calidad del código.</p>
+                <p>El proceso de aprendizaje se basó en la lectura detallada de la documentación proporcionada, que desglosó conceptos complejos en partes manejables. La inclusión de enlaces a demostraciones en línea para herramientas como Babel y ESLint fue particularmente efectiva. Estas demostraciones me permitieron interactuar directamente con las herramientas, ver su funcionamiento en tiempo real y comprender su impacto en el código. Por ejemplo, al usar el REPL de Babel, pude observar cómo el código moderno de JavaScript (ES6+ o TypeScript) se transformaba en una versión compatible con navegadores más antiguos, lo que solidificó mi entendimiento de la transpilación.</p>
+                <p>Además, la sección sobre las herramientas de instalación automatizada (Create React App, Vite, Next.js) fue muy reveladora. Me hizo comprender la importancia de estas herramientas para mitigar la "fatiga de JavaScript" y simplificar la configuración inicial de proyectos, permitiendo a los desarrolladores centrarse más en la lógica de la aplicación que en la configuración de las herramientas subyacentes. Esto es un conocimiento práctico invaluable para futuros proyectos.</p>
+            </div>
+
+            <h3>Reflexión Metacognitiva</h3>
+            <div class="reflection">
+                <p>Mi proceso de aprendizaje en este tema ha sido un claro ejemplo de cómo la combinación de teoría y práctica interactiva facilita una comprensión profunda. Inicialmente, algunos conceptos como la "transpilación" o la "compilación" podían parecer abstractos, pero al verlos en acción a través de las herramientas en línea, se volvieron concretos y lógicos. Me di cuenta de que mi estrategia de aprendizaje más efectiva es la de "aprender haciendo" y "ver para creer".</p>
+                <p>Identifiqué que mi fortaleza radica en la capacidad de conectar los puntos entre diferentes herramientas y entender cómo encajan en el panorama general del desarrollo web. Por ejemplo, comprender que Babel y Webpack trabajan en conjunto para preparar el código para el navegador, o que ESLint ayuda a mantener la calidad del código que luego será procesado por estas herramientas. Mi debilidad inicial fue subestimar la complejidad de la configuración del entorno de desarrollo, pero este módulo me ha proporcionado las herramientas conceptuales para abordarla de manera más efectiva.</p>
+                <p>Para mejorar mi aprendizaje futuro, planeo dedicar más tiempo a la experimentación práctica con cada una de estas herramientas, configurando pequeños proyectos desde cero con Create React App, Vite y Next.js para sentir las diferencias y ventajas de cada una. También buscaré oportunidades para aplicar ESLint y Prettier en mis propios proyectos para internalizar las mejores prácticas de codificación. Esta experiencia me ha enseñado que la comprensión de las herramientas es tan vital como el dominio del lenguaje o la librería en sí.</p>
+            </div>
+        </section>
+
+        <section class="bibliography">
+            <h2>Bibliografía</h2>
+            <ul>
+                <li><b>Documentación General de React:</b> <a href="https://es.reactjs.org/" target="_blank">https://es.reactjs.org/</a></li>
+                <li><b>Inicio Rápido de React:</b> <a href="https://es.reactjs.org/docs/getting-started.html" target="_blank">https://es.reactjs.org/docs/getting-started.html</a></li>
+                <li><b>Webpack:</b> <a href="https://webpack.js.org/" target="_blank">https://webpack.js.org/</a></li>
+                <li><b>Babel:</b> <a href="https://babel.io/" target="_blank">https://babel.io/</a></li>
+                <li><b>ESLint:</b> <a href="https://eslint.org/" target="_blank">https://eslint.org/</a></li>
+                <li><b>Sass:</b> <a href="https://sass-lang.com/" target="_blank">https://sass-lang.com/</a></li>
+                <li><b>Font Awesome:</b> <a href="https://fontawesome.com/" target="_blank">https://fontawesome.com/</a></li>
+                <li><b>Favicon.io:</b> <a href="https://favicon.io/" target="_blank">https://favicon.io/</a></li>
+                <li><b>Create React App:</b> <a href="https://create-react-app.dev/" target="_blank">https://create-react-app.dev/</a></li>
+                <li><b>Vite:</b> <a href="https://vitejs.dev/" target="_blank">https://vitejs.dev/</a></li>
+                <li><b>Next.js:</b> <a href="https://nextjs.org/" target="_blank">https://nextjs.org/</a></li>
+                <li><b>Node.js (para descarga):</b> <a href="https://nodejs.org/es/" target="_blank">https://nodejs.org/es/</a></li>
+            </ul>
+        </section>
+   
+        <div style="margin-top:2rem; display: flex; justify-content: space-between; align-items: center;">
+    <a href="index.html#proyectos" 
+       style="
+           background: linear-gradient(90deg, #232946 60%, #1a1a2e 100%);
+           color: #a7c7e7;
+           padding: 12px 32px;
+           border-radius: 25px;
+           text-decoration: none;
+           font-weight: 600;
+           box-shadow: 0 4px 16px rgba(34,41,70,0.2);
+           transition: background 0.3s, transform 0.3s;
+           border: none;
+           display: flex;
+           align-items: center;
+           gap: 8px;
+       "
+       onmouseover="this.style.background='#1a1a2e';this.style.transform='scale(1.05)'"
+       onmouseout="this.style.background='linear-gradient(90deg, #232946 60%, #1a1a2e 100%)';this.style.transform='scale(1)'"
+    >
+        <i class="fas fa-arrow-left"></i> Volver a Cuadernos
+    </a>
+    <a href="semana06.html" 
+       style="
+           background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+           color: #fff;
+           padding: 12px 32px;
+           border-radius: 25px;
+           text-decoration: none;
+           font-weight: 600;
+           box-shadow: 0 4px 16px rgba(118,75,162,0.15);
+           transition: background 0.3s, transform 0.3s;
+           border: none;
+           display: flex;
+           align-items: center;
+           gap: 8px;
+       "
+       onmouseover="this.style.background='#667eea';this.style.transform='scale(1.05)'"
+       onmouseout="this.style.background='linear-gradient(90deg, #764ba2 0%, #667eea 100%)';this.style.transform='scale(1)'"
+    >
+        Ir a Semana 06 <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+        
+</body>
+</html>
